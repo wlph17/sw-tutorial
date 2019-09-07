@@ -1,47 +1,11 @@
-title: Software Tutorial - Introduction
-output: tutorial1.html
+title: Software Tutorial - Basic C Language
+output: basic_c.html
 controls: true
 style: style.css
 
 --
 
-# Software Tutorial
-## 1-Introduction
-
---
-
-### Main Duties
-
-* Embedded
-    * Maintain core library, which contains reusable modules and hardware drivers.
-    * Help mechanical engineers to design and test the robot prototype.
-    * Design and refine keymaps for operators.
-* Algorithm
-    * Computer vision and gimbal control algorithm for aimbot development.
-    * Task planning using ROS for sentry robot.
-    * Power control algorithms to maximize utilization of the available power.
-
---
-
-### Technical Stack
-
-* Language: C/C++
-* Version Control: Git
-* Embedded:
-  * RoboMaster Development Board A
-  * MCU: STM32F427IIH6
-  * MPU: ARM Cortex M4
-  * RTOS: ChibiOS
-  * Debugger: J-Link EDU mini
-  * Compiler: GNU ARM Embedded Toolchain 2017 Q2
-* Algorithm:
-  * Intel NUC mini computer
-  * Libraries: ROS, OpenCV
-  * OS: Ubuntu 18
-
---
-
-# Computer Language Basics
+# C Language Basics
 ```c
 #include <stdio.h>
 int main()
@@ -131,7 +95,7 @@ printf(/*a comment in the middle of a line*/  "bar");
 
 --
 
-### Expressions and Statements
+### Expressions & Statements
 
 * Statements are similar to instructions, are executed sequentially, together with expressions are building blocks of complicated programs.
 * Expressions can be evaluated to a single value:
@@ -147,7 +111,7 @@ printf(/*a comment in the middle of a line*/  "bar");
   sin(PI/4);
   2 + 2 >= 4;
   ```
-* Statements can be combined into a ***compound statement*** using a pair of braces (`{}`):
+* Statements can be combined into a ***compound statement*** (also called blocks) using a pair of braces (`{}`):
 
   ```c
   {
@@ -160,8 +124,158 @@ printf(/*a comment in the middle of a line*/  "bar");
 
 --
 
+### Arithmetic Operations & Function Call
+
+--
+
+### Logical Operations & Bitwise Operations
+
+--
+
 ### Variables
 
+* Computer programs store data in variables. 
 
+* Declaration of variable: (angle brackets denote terms that should be replaced, square brackets denote optional component, note that this is not the complete format)
 
+  ```
+  <type> <name> [= <value>];
+  ```
+
+  Examples:
+
+  ```c
+  int a;          // declare an integer called a with random value (not initialized)
+  bool b = true;  // declare a boolean called b assigned with value true
+  ```
+
+* Variables have ***scope***, ***global*** (the entire program) if not declared inside any function, or ***local*** to the block of code it is in. Variable names should be unique within its scope, and only the code within the scope of the variable have access to the variable.
+
+  ```c
+  int globalVariableA;   // global
+  void someFunction() {
+      int localVariable; // local to the function
+      {
+          int localVariable2; // local to this block only
+      }
+      // has no access to localVariable2 and knows nothing about it
+  }
+  ```
+
+--
+
+### Variables (cont.)
+
+* Variables can be modified by assigning it with another value:
+
+  ```c
+  int a = 0; // originally a is 0
+  a = 5;     // it is 5 now
+  ```
+  
+  but cannot do so if declared as constant:
+  
+  ```c
+  const int a = 0;
+  a = 5; // this would not compile as it is not allowed
+  ```
+  
+  
+  
+* Variables not initialized should not be read, as the value is undefined (it can be anything).
+
+  ```c
+  int a;
+  printf("%d", a); // does not make sense, it can be anything
+  ```
+  
+  
+  
+* Variables declared in a block would ***shadow*** the variable outside with the same name. 
+
+  ```c
+  int a = 0;
+  {
+      int a;
+      a = 5;             // you are changing the variable a inside this block, 
+                         // instead of the one outside
+      printf("%d\n", a); // 5
+  }
+  printf("%d\n", a);     // 0
+  ```
+
+--
+
+### Conditional Statement
+
+--
+
+### Iterative Statement
+
+--
+
+### Functions
+
+- Function is a set of statements together to perform a task, may take ***parameters*** (input data, same as variables), and may evaluate to a value (called ***return value***). For example, `sin` function takes a double, computes the sine value and returns a double.
+
+- ***Function Declaration***: tells the compiler the name, parameters and the return type of a function.
+
+  ```
+  <type> <name>(<type> <parameter name>, ...);
+  ```
+
+  ```c
+  double sin(double rad);
+  ```
+
+- ***Function Definition***: defines how the function run, basically the declaration with the function body. (statements to be run, with a ***return statement*** to return the evaluated value)
+
+  ```
+  <type> <name>(<type> <parameter name>, ...)
+  {
+      <statements>
+      return <value>;
+  }
+  ```
+
+--
+
+### Functions (cont.)
+
+* Functions can have no return value, the type of this kind of functions are `void`.
+
+  ```c
+  void printSine(double rad)
+  {
+      printf("%lf", sin(rad));
+  }
+  ```
+  
+* Return statements would stop the execution of the function, yielding the control back to the caller.
+  
+  ```c
+  int foo()
+  {
+      if (true)
+          return 1;     // the function basically terminates here
+      printf("foobar"); // this will never be run (dead code)
+  }
+  ```
+  
+* Void functions can use return statement to yield the control back to the caller also.
+  
+  ```c
+  void bar()
+  {
+      if (true)
+          return;       // the function basically terminates here
+      printf("foobar"); // this will never be run
+  }
+  ```
+  
+  
+
+--
+
+### Type Conversion & Casting
 

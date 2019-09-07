@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-  <title>Software Tutorial - Introduction</title>
+  <title>Software Tutorial - Basic C Language</title>
   <style type="text/css">
     body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -565,53 +565,7 @@ em {
   </div>
 
   <div class="slide" id="slide-1">
-    <section class="slide-content"><h1 id="software-tutorial">Software Tutorial</h1>
-<h2 id="1-introduction">1-Introduction</h2>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-2">
-    <section class="slide-content"><h3 id="main-duties">Main Duties</h3>
-<ul>
-<li>Embedded<ul>
-<li>Maintain core library, which contains reusable modules and hardware drivers.</li>
-<li>Help mechanical engineers to design and test the robot prototype.</li>
-<li>Design and refine keymaps for operators.</li>
-</ul>
-</li>
-<li>Algorithm<ul>
-<li>Computer vision and gimbal control algorithm for aimbot development.</li>
-<li>Task planning using ROS for sentry robot.</li>
-<li>Power control algorithms to maximize utilization of the available power.</li>
-</ul>
-</li>
-</ul>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-3">
-    <section class="slide-content"><h3 id="technical-stack">Technical Stack</h3>
-<ul>
-<li>Language: C/C++</li>
-<li>Version Control: Git</li>
-<li>Embedded:<ul>
-<li>RoboMaster Development Board A</li>
-<li>MCU: STM32F427IIH6</li>
-<li>MPU: ARM Cortex M4</li>
-<li>RTOS: ChibiOS</li>
-<li>Debugger: J-Link EDU mini</li>
-<li>Compiler: GNU ARM Embedded Toolchain 2017 Q2</li>
-</ul>
-</li>
-<li>Algorithm:<ul>
-<li>Intel NUC mini computer</li>
-<li>Libraries: ROS, OpenCV</li>
-<li>OS: Ubuntu 18</li>
-</ul>
-</li>
-</ul>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-4">
-    <section class="slide-content"><h1 id="computer-language-basics">Computer Language Basics</h1>
+    <section class="slide-content"><h1 id="c-language-basics">C Language Basics</h1>
 <pre><code class="lang-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
 <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
 </span>{
@@ -622,7 +576,7 @@ em {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-5">
+  <div class="slide hidden" id="slide-2">
     <section class="slide-content"><h3 id="motivation">Motivation</h3>
 <ul>
 <li><p>Computer executes simple instructions sequentially. Consider the pseudo-code below:</p>
@@ -641,7 +595,7 @@ ADD B to A
 </ul>
 </section>
   </div>
-  <div class="slide hidden" id="slide-6">
+  <div class="slide hidden" id="slide-3">
     <section class="slide-content"><h3 id="motivation-cont-">Motivation (cont.)</h3>
 <ul>
 <li>Abstractions: neglecting implementation details.<ul>
@@ -656,7 +610,7 @@ ADD B to A
 </blockquote>
 </section>
   </div>
-  <div class="slide hidden" id="slide-7">
+  <div class="slide hidden" id="slide-4">
     <section class="slide-content"><h3 id="compile">Compile</h3>
 <ul>
 <li>High level languages cannot be executed by computers directly. It has to be translated into machine code before execution, this translation is called <strong><em>compile</em></strong> and is done by a <strong><em>compiler</em></strong> (compiler toolchain, basically a set of tools).</li>
@@ -665,7 +619,7 @@ ADD B to A
 </ul>
 </section>
   </div>
-  <div class="slide hidden" id="slide-8">
+  <div class="slide hidden" id="slide-5">
     <section class="slide-content"><h3 id="comments">Comments</h3>
 <ul>
 <li><p>Comments are texts that are intended for human read only, and will be ignored by the compiler.</p>
@@ -682,7 +636,7 @@ ADD B to A
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-9">
+  <div class="slide hidden" id="slide-6">
     <section class="slide-content"><h3 id="types">Types</h3>
 <ul>
 <li><p>Data in programs have <strong><em>types</em></strong>, such as integer, floating point (represented using scientific notation), string (text) etc, with the following usages:</p>
@@ -702,7 +656,7 @@ ADD B to A
 </blockquote>
 </section>
   </div>
-  <div class="slide hidden" id="slide-10">
+  <div class="slide hidden" id="slide-7">
     <section class="slide-content"><h3 id="primary-types">Primary Types</h3>
 <ul>
 <li><strong><em>Integers</em></strong>: with <strong><em>signed</em></strong> and <strong><em>unsigned</em></strong>, and various sizes which determines the range of the type. It would <strong><em>overflow/underflow</em></strong> when the actual data is beyond the the range of the data type. For example, if the range of a signed <code>int8_t</code> is -128 to 127, when you add 1 to 127, it would overflow to -128.<br>Different size of integers can be denoted using the combination of <code>int</code> <code>long</code> <code>short</code>, and <code>unsigned</code> for unsigned integers. However, the standard only specified the minimum size of the integers, the actual size is implementation dependent. For <strong><em>fixed size integers</em></strong> which are mainly used in embedded development, use <code>stdint.h</code>.</li>
@@ -712,8 +666,8 @@ ADD B to A
 </ul>
 </section>
   </div>
-  <div class="slide hidden" id="slide-11">
-    <section class="slide-content"><h3 id="expressions-and-statements">Expressions and Statements</h3>
+  <div class="slide hidden" id="slide-8">
+    <section class="slide-content"><h3 id="expressions-statements">Expressions &amp; Statements</h3>
 <ul>
 <li>Statements are similar to instructions, are executed sequentially, together with expressions are building blocks of complicated programs.</li>
 <li>Expressions can be evaluated to a single value:<pre><code class="lang-c"><span class="hljs-number">1</span> + <span class="hljs-number">1</span>       <span class="hljs-comment">// 2</span>
@@ -727,7 +681,7 @@ ADD B to A
 <span class="hljs-number">2</span> + <span class="hljs-number">2</span> &gt;= <span class="hljs-number">4</span>;
 </code></pre>
 </li>
-<li><p>Statements can be combined into a <strong><em>compound statement</em></strong> using a pair of braces (<code>{}</code>):</p>
+<li><p>Statements can be combined into a <strong><em>compound statement</em></strong> (also called blocks) using a pair of braces (<code>{}</code>):</p>
 <pre><code class="lang-c">{
     <span class="hljs-number">1</span> + <span class="hljs-number">1</span>;
     <span class="hljs-built_in">sin</span>(PI/<span class="hljs-number">4</span>);
@@ -738,8 +692,136 @@ ADD B to A
 </ul>
 </section>
   </div>
-  <div class="slide hidden" id="slide-12">
+  <div class="slide hidden" id="slide-9">
+    <section class="slide-content"><h3 id="arithmetic-operations-function-call">Arithmetic Operations &amp; Function Call</h3>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-10">
+    <section class="slide-content"><h3 id="logical-operations-bitwise-operations">Logical Operations &amp; Bitwise Operations</h3>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-11">
     <section class="slide-content"><h3 id="variables">Variables</h3>
+<ul>
+<li><p>Computer programs store data in variables. </p>
+</li>
+<li><p>Declaration of variable: (angle brackets denote terms that should be replaced, square brackets denote optional component, note that this is not the complete format)</p>
+<pre><code>&lt;type&gt; &lt;name&gt; [= &lt;value&gt;];
+</code></pre><p>Examples:</p>
+<pre><code class="lang-c"><span class="hljs-keyword">int</span> a;          <span class="hljs-comment">// declare an integer called a with random value (not initialized)</span>
+<span class="hljs-keyword">bool</span> b = <span class="hljs-literal">true</span>;  <span class="hljs-comment">// declare a boolean called b assigned with value true</span>
+</code></pre>
+</li>
+<li><p>Variables have <strong><em>scope</em></strong>, <strong><em>global</em></strong> (the entire program) if not declared inside any function, or <strong><em>local</em></strong> to the block of code it is in. Variable names should be unique within its scope, and only the code within the scope of the variable have access to the variable.</p>
+<pre><code class="lang-c"><span class="hljs-keyword">int</span> globalVariableA;   <span class="hljs-comment">// global</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">someFunction</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">int</span> localVariable; <span class="hljs-comment">// local to the function</span>
+    {
+        <span class="hljs-keyword">int</span> localVariable2; <span class="hljs-comment">// local to this block only</span>
+    }
+    <span class="hljs-comment">// has no access to localVariable2 and knows nothing about it</span>
+}
+</code></pre>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-12">
+    <section class="slide-content"><h3 id="variables-cont-">Variables (cont.)</h3>
+<ul>
+<li><p>Variables can be modified by assigning it with another value:</p>
+<pre><code class="lang-c"><span class="hljs-keyword">int</span> a = <span class="hljs-number">0</span>; <span class="hljs-comment">// originally a is 0</span>
+a = <span class="hljs-number">5</span>;     <span class="hljs-comment">// it is 5 now</span>
+</code></pre>
+<p>but cannot do so if declared as constant:</p>
+<pre><code class="lang-c"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> a = <span class="hljs-number">0</span>;
+a = <span class="hljs-number">5</span>; <span class="hljs-comment">// this would not compile as it is not allowed</span>
+</code></pre>
+</li>
+</ul>
+<ul>
+<li><p>Variables not initialized should not be read, as the value is undefined (it can be anything).</p>
+<pre><code class="lang-c"><span class="hljs-keyword">int</span> a;
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d"</span>, a); <span class="hljs-comment">// does not make sense, it can be anything</span>
+</code></pre>
+</li>
+</ul>
+<ul>
+<li><p>Variables declared in a block would <strong><em>shadow</em></strong> the variable outside with the same name. </p>
+<pre><code class="lang-c"><span class="hljs-keyword">int</span> a = <span class="hljs-number">0</span>;
+{
+    <span class="hljs-keyword">int</span> a;
+    a = <span class="hljs-number">5</span>;             <span class="hljs-comment">// you are changing the variable a inside this block, </span>
+                       <span class="hljs-comment">// instead of the one outside</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d\n"</span>, a); <span class="hljs-comment">// 5</span>
+}
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d\n"</span>, a);     <span class="hljs-comment">// 0</span>
+</code></pre>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-13">
+    <section class="slide-content"><h3 id="conditional-statement">Conditional Statement</h3>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-14">
+    <section class="slide-content"><h3 id="iterative-statement">Iterative Statement</h3>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-15">
+    <section class="slide-content"><h3 id="functions">Functions</h3>
+<ul>
+<li><p>Function is a set of statements together to perform a task, may take <strong><em>parameters</em></strong> (input data, same as variables), and may evaluate to a value (called <strong><em>return value</em></strong>). For example, <code>sin</code> function takes a double, computes the sine value and returns a double.</p>
+</li>
+<li><p><strong><em>Function Declaration</em></strong>: tells the compiler the name, parameters and the return type of a function.</p>
+<pre><code>&lt;type&gt; &lt;name&gt;(&lt;type&gt; &lt;parameter name&gt;, ...);
+</code></pre><pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">sin</span><span class="hljs-params">(<span class="hljs-keyword">double</span> rad)</span></span>;
+</code></pre>
+</li>
+<li><p><strong><em>Function Definition</em></strong>: defines how the function run, basically the declaration with the function body. (statements to be run, with a <strong><em>return statement</em></strong> to return the evaluated value)</p>
+<pre><code>&lt;type&gt; &lt;name&gt;(&lt;type&gt; &lt;parameter name&gt;, ...)
+{
+    &lt;statements&gt;
+    return &lt;value&gt;;
+}
+</code></pre></li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-16">
+    <section class="slide-content"><h3 id="functions-cont-">Functions (cont.)</h3>
+<ul>
+<li><p>Functions can have no return value, the type of this kind of functions are <code>void</code>.</p>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">printSine</span><span class="hljs-params">(<span class="hljs-keyword">double</span> rad)</span>
+</span>{
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%lf"</span>, <span class="hljs-built_in">sin</span>(rad));
+}
+</code></pre>
+</li>
+<li><p>Return statements would stop the execution of the function, yielding the control back to the caller.</p>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">foo</span><span class="hljs-params">()</span>
+</span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-literal">true</span>)
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;     <span class="hljs-comment">// the function basically terminates here</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"foobar"</span>); <span class="hljs-comment">// this will never be run (dead code)</span>
+}
+</code></pre>
+</li>
+<li><p>Void functions can use return statement to yield the control back to the caller also.</p>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">bar</span><span class="hljs-params">()</span>
+</span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-literal">true</span>)
+        <span class="hljs-keyword">return</span>;       <span class="hljs-comment">// the function basically terminates here</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"foobar"</span>); <span class="hljs-comment">// this will never be run</span>
+}
+</code></pre>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-17">
+    <section class="slide-content"><h3 id="type-conversion-casting">Type Conversion &amp; Casting</h3>
 </section>
   </div>
 
