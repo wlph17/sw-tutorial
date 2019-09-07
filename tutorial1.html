@@ -375,6 +375,10 @@ pre code {
   font-size: 140%;
 }
 
+p {
+  margin: 0.2em;
+}
+
 .slide {
   background-color: inherit;
   display: absolute;
@@ -554,7 +558,6 @@ em {
 }
 
   </style>
-    <script async src="http://localhost:35729/livereload.js"></script>
 </head>
 <body>
     <div class="progress">
@@ -608,7 +611,7 @@ em {
 </section>
   </div>
   <div class="slide hidden" id="slide-4">
-    <section class="slide-content"><h1 id="c-language-basics">C Language Basics</h1>
+    <section class="slide-content"><h1 id="computer-language-basics">Computer Language Basics</h1>
 <pre><code class="lang-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
 <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
 </span>{
@@ -620,7 +623,7 @@ em {
 </section>
   </div>
   <div class="slide hidden" id="slide-5">
-    <section class="slide-content"><h3 id="what-is-c-and-why-c-">What is C and Why C?</h3>
+    <section class="slide-content"><h3 id="motivation">Motivation</h3>
 <ul>
 <li><p>Computer executes simple instructions sequentially. Consider the pseudo-code below:</p>
 <pre><code>SET A = 1
@@ -639,11 +642,11 @@ ADD B to A
 </section>
   </div>
   <div class="slide hidden" id="slide-6">
-    <section class="slide-content"><h3 id="what-is-c-and-why-c-cont-">What is C and Why C? (cont.)</h3>
+    <section class="slide-content"><h3 id="motivation-cont-">Motivation (cont.)</h3>
 <ul>
 <li>Abstractions: neglecting implementation details.<ul>
-<li>Low level: working with hardware. </li>
-<li>High level: neglecting the hardware details. </li>
+<li>Low level: working with hardware.</li>
+<li>High level: neglecting the hardware details.</li>
 </ul>
 </li>
 <li>C language is a high level programming language. It provides some abstractions which enables us to write larger programs. However, it still provides ways for us to do low level work, which is needed in embedded programming.</li>
@@ -654,7 +657,7 @@ ADD B to A
 </section>
   </div>
   <div class="slide hidden" id="slide-7">
-    <section class="slide-content"><h3 id="compiling">Compiling</h3>
+    <section class="slide-content"><h3 id="compile">Compile</h3>
 <ul>
 <li>High level languages cannot be executed by computers directly. It has to be translated into machine code before execution, this translation is called <strong><em>compile</em></strong> and is done by a <strong><em>compiler</em></strong> (compiler toolchain, basically a set of tools).</li>
 <li>When compiling programs for another kind of machine having different set of instruction set, a <strong><em>cross-compiler</em></strong> would be needed, and the translation would be called <strong><em>cross-compile</em></strong>. In short, the compiler used in our embedded programming is different from what we use normally.</li>
@@ -663,7 +666,81 @@ ADD B to A
 </section>
   </div>
   <div class="slide hidden" id="slide-8">
-    <section class="slide-content"></section>
+    <section class="slide-content"><h3 id="comments">Comments</h3>
+<ul>
+<li><p>Comments are texts that are intended for human read only, and will be ignored by the compiler.</p>
+</li>
+<li><p>Single line comments starts with <code>//</code> and continue to the end of the line.</p>
+</li>
+<li>Multi-line comments starts with <code>/*</code> and ends with <code>*/</code>. Note that it is not required to be multi-line.</li>
+</ul>
+<pre><code class="lang-c"><span class="hljs-comment">// a comment using the entire line</span>
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">"foo"</span>); <span class="hljs-comment">// a comment using only the end of a line</span>
+<span class="hljs-comment">/* comment spanning
+   multiple lines   */</span>
+<span class="hljs-built_in">printf</span>(<span class="hljs-comment">/*a comment in the middle of a line*/</span>  <span class="hljs-string">"bar"</span>);
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-9">
+    <section class="slide-content"><h3 id="types">Types</h3>
+<ul>
+<li><p>Data in programs have <strong><em>types</em></strong>, such as integer, floating point (represented using scientific notation), string (text) etc, with the following usages:</p>
+<ul>
+<li><p>Memory layout. Data are stored in memory as bits and bytes, which on their own has no meaning. Type defines the interpretation of the memory.</p>
+<p>For example <code>1000 0000</code> can represent 128 for integer, but it can also represent -128 for another type of integer (<code>int8_t</code>).</p>
+</li>
+<li>Operations. For example the addition of integer is different than that of floating point.</li>
+<li><p>Checking. Different types may be incompatible from each other, or the conversion may cause loss of information that requires programmer&#39;s attention.</p>
+<p>Compiler performs <strong><em>type checking</em></strong> to make sure that the programmer uses the right type on the right place. For example, not putting a text into a math function.</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>Note: The memory layout for the same type in different architecture may be different. Search <strong><em>memory alignment</em></strong> and <strong><em>endianness</em></strong> for more details.</p>
+</blockquote>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-10">
+    <section class="slide-content"><h3 id="primary-types">Primary Types</h3>
+<ul>
+<li><strong><em>Integers</em></strong>: with <strong><em>signed</em></strong> and <strong><em>unsigned</em></strong>, and various sizes which determines the range of the type. It would <strong><em>overflow/underflow</em></strong> when the actual data is beyond the the range of the data type. For example, if the range of a signed <code>int8_t</code> is -128 to 127, when you add 1 to 127, it would overflow to -128.<br>Different size of integers can be denoted using the combination of <code>int</code> <code>long</code> <code>short</code>, and <code>unsigned</code> for unsigned integers. However, the standard only specified the minimum size of the integers, the actual size is implementation dependent. For <strong><em>fixed size integers</em></strong> which are mainly used in embedded development, use <code>stdint.h</code>.</li>
+<li><strong><em>Floating point</em></strong>: represents numbers in <strong><em>scientific notation</em></strong>, with sign, exponent and significant field. It can represent real numbers with a wide range, but with limited precision (indeed the number is nearly never exact). <code>float</code> for single-precision, <code>double</code> for double-precision and <code>long double</code> for even higher precision.</li>
+<li><strong><em>Characters</em></strong>: 8 bit integer primarily used to store <strong><em>ASCII</em></strong> characters. The reserved word is <code>char</code>.</li>
+<li><strong><em>Boolean</em></strong>: 1 bit integer used to denote true and false. The reserved word is <code>bool</code>.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-11">
+    <section class="slide-content"><h3 id="expressions-and-statements">Expressions and Statements</h3>
+<ul>
+<li>Statements are similar to instructions, are executed sequentially, together with expressions are building blocks of complicated programs.</li>
+<li>Expressions can be evaluated to a single value:<pre><code class="lang-c"><span class="hljs-number">1</span> + <span class="hljs-number">1</span>       <span class="hljs-comment">// 2</span>
+<span class="hljs-built_in">sin</span>(PI/<span class="hljs-number">4</span>)   <span class="hljs-comment">// sqrt(2)/2</span>
+<span class="hljs-number">2</span> + <span class="hljs-number">2</span> &gt;= <span class="hljs-number">4</span>  <span class="hljs-comment">// true</span>
+</code></pre>
+</li>
+<li><p>Expressions become statements by appending a semicolon (<code>;</code>) after them:</p>
+<pre><code class="lang-c"><span class="hljs-number">1</span> + <span class="hljs-number">1</span>;
+<span class="hljs-built_in">sin</span>(PI/<span class="hljs-number">4</span>);
+<span class="hljs-number">2</span> + <span class="hljs-number">2</span> &gt;= <span class="hljs-number">4</span>;
+</code></pre>
+</li>
+<li><p>Statements can be combined into a <strong><em>compound statement</em></strong> using a pair of braces (<code>{}</code>):</p>
+<pre><code class="lang-c">{
+    <span class="hljs-number">1</span> + <span class="hljs-number">1</span>;
+    <span class="hljs-built_in">sin</span>(PI/<span class="hljs-number">4</span>);
+    <span class="hljs-number">2</span> + <span class="hljs-number">2</span> &gt;= <span class="hljs-number">4</span>;
+}
+</code></pre>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-12">
+    <section class="slide-content"><h3 id="variables">Variables</h3>
+</section>
   </div>
 
   <div class="controls">

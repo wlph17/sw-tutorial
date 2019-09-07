@@ -17,6 +17,10 @@ pre code {
   font-size: 140%;
 }
 
+p {
+  margin: 0.2em;
+}
+
 .slide {
   background-color: inherit;
   display: absolute;
