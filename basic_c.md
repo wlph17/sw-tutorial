@@ -87,7 +87,7 @@ printf(/*a comment in the middle of a line*/  "bar");
 
 ### Primary Types
 
-* ***Integers***: with ***signed*** and ***unsigned***, and various sizes which determines the range of the type. It would ***overflow/underflow*** when the actual data is beyond the the range of the data type. For example, if the range of a signed `int8_t` is -128 to 127, when you add 1 to 127, it would overflow to -128.  
+* ***Integers***: with ***signed*** and ***unsigned***, and various sizes which determines the range of the type. It would ***overflow/underflow*** when the actual data is beyond the the range of the data type. For example, if the range of a signed `int8_t` is -128 to 127, when you add 1 to 127, it would overflow to -128. (assuming two's complement is used)  
   Different size of integers can be denoted using the combination of `int` `long` `short`, and `unsigned` for unsigned integers. However, the standard only specified the minimum size of the integers, the actual size is implementation dependent. For ***fixed size integers*** which are mainly used in embedded development, use `stdint.h`.
 * ***Floating point***: represents numbers in ***scientific notation***, with sign, exponent and significant field. It can represent real numbers with a wide range, but with limited precision (indeed the number is nearly never exact). `float` for single-precision, `double` for double-precision and `long double` for even higher precision.
 * ***Characters***: 8 bit integer primarily used to store ***ASCII*** characters. The reserved word is `char`.
@@ -95,23 +95,54 @@ printf(/*a comment in the middle of a line*/  "bar");
 
 --
 
-### Expressions & Statements
+### Basic Operations
 
-* Statements are similar to instructions, are executed sequentially, together with expressions are building blocks of complicated programs.
-* Expressions can be evaluated to a single value:
+* Integers and floating point numbers support basic arithmetic operations, including `+` (addition), `-` (subtraction), `*` (multiplication), `/` (division), `%` (mod).
+
+* Integers and numbers support comparison which would return boolean, including `==` (equal), `>` (larger than), `<` (smaller than), `>=` (larger than or equal to), `<=` (larger than or equal to), `!=` (not equal).
+
+* Integers also support bitwise operations, including `&` (bitwise and), `|` (bitwise or), `~` (bitwise not), `^` (bitwise xor), `<<` (left shift), `>>` (right shift).
+
+* Booleans support logical operations, including `&&` (logical and), `||` (logical or), `!` (logical not). *Logical and* and *logical or* would have a *short-circuiting* behavior, as the second operand (the right one) will not be evaluated if the result can be deduced from the first operand, thus may reduce processing time if used wisely.
+
+* Operators have different precedence, parenthesis (`()`) can be used to change the precedence like in ordinary arithmetic.
+
   ```c
-  1 + 1       // 2
-  sin(PI/4)   // sqrt(2)/2
-  2 + 2 >= 4  // true
+  5 * (1 + 1)
   ```
-* Expressions become statements by appending a semicolon (`;`) after them:
+
+--
+
+### Function Call
+
+* Functions are subprograms that can be executed to perform certain task, may take inputs and may evaluate to a certain value. They will be discussed in depth later in the tutorial.
+
+* Inputs to the program are called ***parameters***, and evaluated value of the function is called the ***return value***. Format of function call is `<name>(<param1>, <param2>, ...)`: 
+  ```c
+  sin(1)
+  printf("1 + 1 = %d", 1 + 1)
+  exit()
+  ```
+  
+* Functions that can be defined entirely by its input and output mapping are called ***pure functions***. Effects of the function apart from returning the return value are called `side effects`. For example, `printf` is not a pure function, and its side effect is printing to stdout of the terminal. Note that side effects may be desired feature of a function.
+
+--
+
+### Statements & Expressions
+
+- ***Expression*** would evaluate to a single value.
+
+- Statements are similar to instructions, are executed sequentially, together with expressions are building blocks of complicated programs.
+
+- Expressions become statements by appending a semicolon (`;`) after them:
 
   ```c
   1 + 1;
   sin(PI/4);
   2 + 2 >= 4;
   ```
-* Statements can be combined into a ***compound statement*** (also called blocks) using a pair of braces (`{}`):
+
+- Statements can be combined into a ***compound statement*** (also called blocks) using a pair of braces (`{}`):
 
   ```c
   {
@@ -120,15 +151,6 @@ printf(/*a comment in the middle of a line*/  "bar");
       2 + 2 >= 4;
   }
   ```
-  
-
---
-
-### Arithmetic Operations & Function Call
-
---
-
-### Logical Operations & Bitwise Operations
 
 --
 
@@ -136,7 +158,7 @@ printf(/*a comment in the middle of a line*/  "bar");
 
 * Computer programs store data in variables. 
 
-* Declaration of variable: (angle brackets denote terms that should be replaced, square brackets denote optional component, note that this is not the complete format)
+* Declaration of variable: angle brackets denote terms that should be replaced, square brackets denote optional component, note that this is not the complete format)
 
   ```
   <type> <name> [= <value>];
@@ -172,25 +194,18 @@ printf(/*a comment in the middle of a line*/  "bar");
   int a = 0; // originally a is 0
   a = 5;     // it is 5 now
   ```
-  
   but cannot do so if declared as constant:
   
   ```c
   const int a = 0;
   a = 5; // this would not compile as it is not allowed
   ```
-  
-  
-  
 * Variables not initialized should not be read, as the value is undefined (it can be anything).
 
   ```c
   int a;
   printf("%d", a); // does not make sense, it can be anything
   ```
-  
-  
-  
 * Variables declared in a block would ***shadow*** the variable outside with the same name. 
 
   ```c
@@ -206,11 +221,80 @@ printf(/*a comment in the middle of a line*/  "bar");
 
 --
 
-### Conditional Statement
+### Special Operators
+
+* Compound assignment operators: `a += b` means `a = a + b`. Similar operators: `+=`, `-=`, `*=`, `/=`, `%=`, `&=`, `|=`, `^=`, `<<=`, `>>=`.
+
+* Increment and decrement: `a++` evaluates to `a`, and then add 1 to `a`. `++a` add 1 to `a`, and then evaluate to `a`.  The same goes to decrement `--` operator.
+
+  ```c
+  int a = 0;
+  printf("%d\n", a++); // 0, a = 1 now
+  printf("%d\n", ++a); // 2, a = 2 now
+  ```
 
 --
 
-### Iterative Statement
+### Conditional Statement & Operator
+
+* We may want to execute statements conditionally, i.e. do something only when certain condition is met. We would use `if` block to do so.
+
+  ```
+  if (<condition boolean>)
+      <statement>
+  else if (<condition boolean>)
+      <statement>
+  ...
+  else
+      <statement>
+  ```
+  ```c
+  if (1 + 1 > 2)
+      printf("1 + 1 > 2");
+  else if (1 + 1 == 2)
+      printf("1 + 1 = 2");
+  else
+      printf("1 + 1 < 2");
+  ```
+* Condition operator is an operator that would evaluate to 2 different values depending on the condition. `<condition> ? <value when true> : <value when false>`.
+
+  ```c
+  (1 + 1 == 2)? 1 : 0 // 1
+  (1 + 1 > 2)? 1 : 0 // 0
+  ```
+
+--
+
+### Loops
+
+* Programs may do repetitive task via loops, which repeat certain statements.
+
+* while loop: check the condition, execute statement and repeat if condition is true.
+
+  ```c
+  while (<condition>)
+      <statement>
+  ```
+
+* do-while loop: execute statement, check the condition and repeat if true.
+
+  ```c
+  do
+     <statement>
+  while (<condition>);
+  ```
+
+* for-loop: syntactic sugar for while loop.
+  ```c
+  for (<initial>; <condition>; <action>)
+      <statement>
+  ```
+  Run the initial statement once, check condition, run action, statement and repeat if condition is true. Example:
+  
+  ```c
+  for (int i = 0; i < 10; i++)
+      printf("%d\n", i);
+  ```
 
 --
 
@@ -278,4 +362,28 @@ printf(/*a comment in the middle of a line*/  "bar");
 --
 
 ### Type Conversion & Casting
+
+* Different types have different representation in memory, so we may need to convert data to do operations between 2 data of different type.
+
+  ```c
+  1 + 1.0 // int + double, int will be converted into double
+  ```
+
+* Type conversion take place during assignment to different variable of different type, or when operation involves two data of different types. Type with smaller range will be converted to the type with larger range. For example integers will be converted to float, but float will not be converted to integers *normally*.
+
+* When we want to force type conversion, we would use type casting. For example, converting from float to integer which may cause loss of information.
+
+  ```c
+  int a = (int)1.234;
+  ```
+  
+* Operators would return the same type as the operands. For example, integer division would give integer. So we may cast integer to float explicitly to get a float result:
+
+  ```c
+  double a = 1 / 2;         // 0
+  double b = (double)1 / 2; // 0.5
+  ```
+
+  
+
 

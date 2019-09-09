@@ -659,7 +659,7 @@ ADD B to A
   <div class="slide hidden" id="slide-7">
     <section class="slide-content"><h3 id="primary-types">Primary Types</h3>
 <ul>
-<li><strong><em>Integers</em></strong>: with <strong><em>signed</em></strong> and <strong><em>unsigned</em></strong>, and various sizes which determines the range of the type. It would <strong><em>overflow/underflow</em></strong> when the actual data is beyond the the range of the data type. For example, if the range of a signed <code>int8_t</code> is -128 to 127, when you add 1 to 127, it would overflow to -128.<br>Different size of integers can be denoted using the combination of <code>int</code> <code>long</code> <code>short</code>, and <code>unsigned</code> for unsigned integers. However, the standard only specified the minimum size of the integers, the actual size is implementation dependent. For <strong><em>fixed size integers</em></strong> which are mainly used in embedded development, use <code>stdint.h</code>.</li>
+<li><strong><em>Integers</em></strong>: with <strong><em>signed</em></strong> and <strong><em>unsigned</em></strong>, and various sizes which determines the range of the type. It would <strong><em>overflow/underflow</em></strong> when the actual data is beyond the the range of the data type. For example, if the range of a signed <code>int8_t</code> is -128 to 127, when you add 1 to 127, it would overflow to -128. (assuming two&#39;s complement is used)<br>Different size of integers can be denoted using the combination of <code>int</code> <code>long</code> <code>short</code>, and <code>unsigned</code> for unsigned integers. However, the standard only specified the minimum size of the integers, the actual size is implementation dependent. For <strong><em>fixed size integers</em></strong> which are mainly used in embedded development, use <code>stdint.h</code>.</li>
 <li><strong><em>Floating point</em></strong>: represents numbers in <strong><em>scientific notation</em></strong>, with sign, exponent and significant field. It can represent real numbers with a wide range, but with limited precision (indeed the number is nearly never exact). <code>float</code> for single-precision, <code>double</code> for double-precision and <code>long double</code> for even higher precision.</li>
 <li><strong><em>Characters</em></strong>: 8 bit integer primarily used to store <strong><em>ASCII</em></strong> characters. The reserved word is <code>char</code>.</li>
 <li><strong><em>Boolean</em></strong>: 1 bit integer used to denote true and false. The reserved word is <code>bool</code>.</li>
@@ -667,13 +667,45 @@ ADD B to A
 </section>
   </div>
   <div class="slide hidden" id="slide-8">
-    <section class="slide-content"><h3 id="expressions-statements">Expressions &amp; Statements</h3>
+    <section class="slide-content"><h3 id="basic-operations">Basic Operations</h3>
 <ul>
-<li>Statements are similar to instructions, are executed sequentially, together with expressions are building blocks of complicated programs.</li>
-<li>Expressions can be evaluated to a single value:<pre><code class="lang-c"><span class="hljs-number">1</span> + <span class="hljs-number">1</span>       <span class="hljs-comment">// 2</span>
-<span class="hljs-built_in">sin</span>(PI/<span class="hljs-number">4</span>)   <span class="hljs-comment">// sqrt(2)/2</span>
-<span class="hljs-number">2</span> + <span class="hljs-number">2</span> &gt;= <span class="hljs-number">4</span>  <span class="hljs-comment">// true</span>
+<li><p>Integers and floating point numbers support basic arithmetic operations, including <code>+</code> (addition), <code>-</code> (subtraction), <code>*</code> (multiplication), <code>/</code> (division), <code>%</code> (mod).</p>
+</li>
+<li><p>Integers and numbers support comparison which would return boolean, including <code>==</code> (equal), <code>&gt;</code> (larger than), <code>&lt;</code> (smaller than), <code>&gt;=</code> (larger than or equal to), <code>&lt;=</code> (larger than or equal to), <code>!=</code> (not equal).</p>
+</li>
+<li><p>Integers also support bitwise operations, including <code>&amp;</code> (bitwise and), <code>|</code> (bitwise or), <code>~</code> (bitwise not), <code>^</code> (bitwise xor), <code>&lt;&lt;</code> (left shift), <code>&gt;&gt;</code> (right shift).</p>
+</li>
+<li><p>Booleans support logical operations, including <code>&amp;&amp;</code> (logical and), <code>||</code> (logical or), <code>!</code> (logical not). <em>Logical and</em> and <em>logical or</em> would have a <em>short-circuiting</em> behavior, as the second operand (the right one) will not be evaluated if the result can be deduced from the first operand, thus may reduce processing time if used wisely.</p>
+</li>
+<li><p>Operators have different precedence, parenthesis (<code>()</code>) can be used to change the precedence like in ordinary arithmetic.</p>
+<pre><code class="lang-c"><span class="hljs-number">5</span> * (<span class="hljs-number">1</span> + <span class="hljs-number">1</span>)
 </code></pre>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-9">
+    <section class="slide-content"><h3 id="function-call">Function Call</h3>
+<ul>
+<li><p>Functions are subprograms that can be executed to perform certain task, may take inputs and may evaluate to a certain value. They will be discussed in depth later in the tutorial.</p>
+</li>
+<li><p>Inputs to the program are called <strong><em>parameters</em></strong>, and evaluated value of the function is called the <strong><em>return value</em></strong>. Format of function call is <code>&lt;name&gt;(&lt;param1&gt;, &lt;param2&gt;, ...)</code>: </p>
+<pre><code class="lang-c"><span class="hljs-built_in">sin</span>(<span class="hljs-number">1</span>)
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">"1 + 1 = %d"</span>, <span class="hljs-number">1</span> + <span class="hljs-number">1</span>)
+<span class="hljs-built_in">exit</span>()
+</code></pre>
+</li>
+<li><p>Functions that can be defined entirely by its input and output mapping are called <strong><em>pure functions</em></strong>. Effects of the function apart from returning the return value are called <code>side effects</code>. For example, <code>printf</code> is not a pure function, and its side effect is printing to stdout of the terminal. Note that side effects may be desired feature of a function.</p>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-10">
+    <section class="slide-content"><h3 id="statements-expressions">Statements &amp; Expressions</h3>
+<ul>
+<li><p><strong><em>Expression</em></strong> would evaluate to a single value.</p>
+</li>
+<li><p>Statements are similar to instructions, are executed sequentially, together with expressions are building blocks of complicated programs.</p>
 </li>
 <li><p>Expressions become statements by appending a semicolon (<code>;</code>) after them:</p>
 <pre><code class="lang-c"><span class="hljs-number">1</span> + <span class="hljs-number">1</span>;
@@ -692,20 +724,12 @@ ADD B to A
 </ul>
 </section>
   </div>
-  <div class="slide hidden" id="slide-9">
-    <section class="slide-content"><h3 id="arithmetic-operations-function-call">Arithmetic Operations &amp; Function Call</h3>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-10">
-    <section class="slide-content"><h3 id="logical-operations-bitwise-operations">Logical Operations &amp; Bitwise Operations</h3>
-</section>
-  </div>
   <div class="slide hidden" id="slide-11">
     <section class="slide-content"><h3 id="variables">Variables</h3>
 <ul>
 <li><p>Computer programs store data in variables. </p>
 </li>
-<li><p>Declaration of variable: (angle brackets denote terms that should be replaced, square brackets denote optional component, note that this is not the complete format)</p>
+<li><p>Declaration of variable: angle brackets denote terms that should be replaced, square brackets denote optional component, note that this is not the complete format)</p>
 <pre><code>&lt;type&gt; &lt;name&gt; [= &lt;value&gt;];
 </code></pre><p>Examples:</p>
 <pre><code class="lang-c"><span class="hljs-keyword">int</span> a;          <span class="hljs-comment">// declare an integer called a with random value (not initialized)</span>
@@ -738,15 +762,11 @@ a = <span class="hljs-number">5</span>;     <span class="hljs-comment">// it is 
 a = <span class="hljs-number">5</span>; <span class="hljs-comment">// this would not compile as it is not allowed</span>
 </code></pre>
 </li>
-</ul>
-<ul>
 <li><p>Variables not initialized should not be read, as the value is undefined (it can be anything).</p>
 <pre><code class="lang-c"><span class="hljs-keyword">int</span> a;
 <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d"</span>, a); <span class="hljs-comment">// does not make sense, it can be anything</span>
 </code></pre>
 </li>
-</ul>
-<ul>
 <li><p>Variables declared in a block would <strong><em>shadow</em></strong> the variable outside with the same name. </p>
 <pre><code class="lang-c"><span class="hljs-keyword">int</span> a = <span class="hljs-number">0</span>;
 {
@@ -762,14 +782,75 @@ a = <span class="hljs-number">5</span>; <span class="hljs-comment">// this would
 </section>
   </div>
   <div class="slide hidden" id="slide-13">
-    <section class="slide-content"><h3 id="conditional-statement">Conditional Statement</h3>
+    <section class="slide-content"><h3 id="special-operators">Special Operators</h3>
+<ul>
+<li><p>Compound assignment operators: <code>a += b</code> means <code>a = a + b</code>. Similar operators: <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>%=</code>, <code>&amp;=</code>, <code>|=</code>, <code>^=</code>, <code>&lt;&lt;=</code>, <code>&gt;&gt;=</code>.</p>
+</li>
+<li><p>Increment and decrement: <code>a++</code> evaluates to <code>a</code>, and then add 1 to <code>a</code>. <code>++a</code> add 1 to <code>a</code>, and then evaluate to <code>a</code>.  The same goes to decrement <code>--</code> operator.</p>
+<pre><code class="lang-c"><span class="hljs-keyword">int</span> a = <span class="hljs-number">0</span>;
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d\n"</span>, a++); <span class="hljs-comment">// 0, a = 1 now</span>
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d\n"</span>, ++a); <span class="hljs-comment">// 2, a = 2 now</span>
+</code></pre>
+</li>
+</ul>
 </section>
   </div>
   <div class="slide hidden" id="slide-14">
-    <section class="slide-content"><h3 id="iterative-statement">Iterative Statement</h3>
+    <section class="slide-content"><h3 id="conditional-statement-operator">Conditional Statement &amp; Operator</h3>
+<ul>
+<li><p>We may want to execute statements conditionally, i.e. do something only when certain condition is met. We would use <code>if</code> block to do so.</p>
+<pre><code>if (&lt;condition boolean&gt;)
+    &lt;statement&gt;
+else if (&lt;condition boolean&gt;)
+    &lt;statement&gt;
+...
+else
+    &lt;statement&gt;
+</code></pre><pre><code class="lang-c"><span class="hljs-keyword">if</span> (<span class="hljs-number">1</span> + <span class="hljs-number">1</span> &gt; <span class="hljs-number">2</span>)
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"1 + 1 &gt; 2"</span>);
+<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-number">1</span> + <span class="hljs-number">1</span> == <span class="hljs-number">2</span>)
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"1 + 1 = 2"</span>);
+<span class="hljs-keyword">else</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"1 + 1 &lt; 2"</span>);
+</code></pre>
+</li>
+<li><p>Condition operator is an operator that would evaluate to 2 different values depending on the condition. <code>&lt;condition&gt; ? &lt;value when true&gt; : &lt;value when false&gt;</code>.</p>
+<pre><code class="lang-c">(<span class="hljs-number">1</span> + <span class="hljs-number">1</span> == <span class="hljs-number">2</span>)? <span class="hljs-number">1</span> : <span class="hljs-number">0</span> <span class="hljs-comment">// 1</span>
+(<span class="hljs-number">1</span> + <span class="hljs-number">1</span> &gt; <span class="hljs-number">2</span>)? <span class="hljs-number">1</span> : <span class="hljs-number">0</span> <span class="hljs-comment">// 0</span>
+</code></pre>
+</li>
+</ul>
 </section>
   </div>
   <div class="slide hidden" id="slide-15">
+    <section class="slide-content"><h3 id="loops">Loops</h3>
+<ul>
+<li><p>Programs may do repetitive task via loops, which repeat certain statements.</p>
+</li>
+<li><p>while loop: check the condition, execute statement and repeat if condition is true.</p>
+<pre><code class="lang-c"><span class="hljs-keyword">while</span> (&lt;condition&gt;)
+    &lt;statement&gt;
+</code></pre>
+</li>
+<li><p>do-while loop: execute statement, check the condition and repeat if true.</p>
+<pre><code class="lang-c"><span class="hljs-keyword">do</span>
+   &lt;statement&gt;
+<span class="hljs-keyword">while</span> (&lt;condition&gt;);
+</code></pre>
+</li>
+<li><p>for-loop: syntactic sugar for while loop.</p>
+<pre><code class="lang-c"><span class="hljs-keyword">for</span> (&lt;initial&gt;; &lt;condition&gt;; &lt;action&gt;)
+    &lt;statement&gt;
+</code></pre>
+<p>Run the initial statement once, check condition, run action, statement and repeat if condition is true. Example:</p>
+<pre><code class="lang-c"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++)
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d\n"</span>, i);
+</code></pre>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-16">
     <section class="slide-content"><h3 id="functions">Functions</h3>
 <ul>
 <li><p>Function is a set of statements together to perform a task, may take <strong><em>parameters</em></strong> (input data, same as variables), and may evaluate to a value (called <strong><em>return value</em></strong>). For example, <code>sin</code> function takes a double, computes the sine value and returns a double.</p>
@@ -789,7 +870,7 @@ a = <span class="hljs-number">5</span>; <span class="hljs-comment">// this would
 </ul>
 </section>
   </div>
-  <div class="slide hidden" id="slide-16">
+  <div class="slide hidden" id="slide-17">
     <section class="slide-content"><h3 id="functions-cont-">Functions (cont.)</h3>
 <ul>
 <li><p>Functions can have no return value, the type of this kind of functions are <code>void</code>.</p>
@@ -820,8 +901,25 @@ a = <span class="hljs-number">5</span>; <span class="hljs-comment">// this would
 </ul>
 </section>
   </div>
-  <div class="slide hidden" id="slide-17">
+  <div class="slide hidden" id="slide-18">
     <section class="slide-content"><h3 id="type-conversion-casting">Type Conversion &amp; Casting</h3>
+<ul>
+<li><p>Different types have different representation in memory, so we may need to convert data to do operations between 2 data of different type.</p>
+<pre><code class="lang-c"><span class="hljs-number">1</span> + <span class="hljs-number">1.0</span> <span class="hljs-comment">// int + double, int will be converted into double</span>
+</code></pre>
+</li>
+<li><p>Type conversion take place during assignment to different variable of different type, or when operation involves two data of different types. Type with smaller range will be converted to the type with larger range. For example integers will be converted to float, but float will not be converted to integers <em>normally</em>.</p>
+</li>
+<li><p>When we want to force type conversion, we would use type casting. For example, converting from float to integer which may cause loss of information.</p>
+<pre><code class="lang-c"><span class="hljs-keyword">int</span> a = (<span class="hljs-keyword">int</span>)<span class="hljs-number">1.234</span>;
+</code></pre>
+</li>
+<li><p>Operators would return the same type as the operands. For example, integer division would give integer. So we may cast integer to float explicitly to get a float result:</p>
+<pre><code class="lang-c"><span class="hljs-keyword">double</span> a = <span class="hljs-number">1</span> / <span class="hljs-number">2</span>;         <span class="hljs-comment">// 0</span>
+<span class="hljs-keyword">double</span> b = (<span class="hljs-keyword">double</span>)<span class="hljs-number">1</span> / <span class="hljs-number">2</span>; <span class="hljs-comment">// 0.5</span>
+</code></pre>
+</li>
+</ul>
 </section>
   </div>
 
