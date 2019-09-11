@@ -29,8 +29,8 @@ int main()
 
 * This is ***hardware dependent***, and ***verbose*** for some more complex programs.
 * Programmers developed ***high level*** programming languages to deal with this problem, they are:
-  * More abstract, thus more concise and less machine dependent (you can care less about the low level implementation).
-  * More restricted, which can prevent programmers from doing something stupid, and also improve code readability and maintainability.
+  * More abstract<span class="hidden">, thus more concise and less machine dependent (you can care less about the low level implementation).</span>
+  * More restricted<span class="hidden">, which can prevent programmers from doing something stupid, and also improve code readability and maintainability.</span>
 
 --
 
@@ -39,17 +39,15 @@ int main()
 * Abstractions: neglecting implementation details.
   * Low level: working with hardware.
   * High level: neglecting the hardware details.
-* C language is a high level programming language. It provides some abstractions which enables us to write larger programs. However, it still provides ways for us to do low level work, which is needed in embedded programming.
-
-> Note: C++ is a superset of C, which provides more abstractions than C language while being compatible with C. We use both C and C++ in our team. As C++ is more complicated and not really needed in the internal competition, we would not talk about C++ now.
+* C language is a high level programming language. <span class="hidden">It provides some abstractions which enables us to write larger programs. However, it still provides ways for us to do low level work, which is needed in embedded programming.</span>
 
 --
 
 ### Compiler
 
 * High level languages cannot be executed by computers directly. It has to be translated into machine code before execution, this translation is called ***compile*** and is done by a ***compiler*** (compiler toolchain, basically a set of tools).
-* When compiling programs for another kind of machine having different set of instruction set, a ***cross-compiler*** would be needed, and the translation would be called ***cross-compile***. In short, the compiler used in our embedded programming is different from what we use normally.
-* Apart from compiling C files, we may have to include assembly code files or library files to generate the entire executable program. The process of generating the executable program is called ***building***, and due to the complexity of the build process we often make use of build tools such as **GNU Make** to automate the build process.
+* When compiling programs for another kind of machine having different set of instruction set, a ***cross-compiler*** would be needed, and the translation would be called ***cross-compile***. <span class="hidden">In short, the compiler used in our embedded programming is different from what we use normally.</span>
+* <span class="hidden">Apart from compiling C files, we may have to include assembly code files or library files to generate the entire executable program. </span>The process of generating the executable program is called ***building***, <span class="hidden">and due to the complexity of the build process</span> we often make use of build tools such as **GNU Make** to automate the build process.
 
 --
 
@@ -73,37 +71,39 @@ printf(/*a comment in the middle of a line*/  "bar");
 ### Types
 
 * Data in programs have ***types***, such as integer, floating point (represented using scientific notation), string (text) etc, with the following usages:
-  * Memory layout. Data are stored in memory as bits and bytes, which on their own has no meaning. Type defines the interpretation of the memory.
+  * Memory layout<span class="hidden">. Data are stored in memory as bits and bytes, which on their own has no meaning. Type defines the interpretation of the memory.</span>
 
-    For example `1000 0000` can represent 128 for integer, but it can also represent -128 for another type of integer (`int8_t`).
-  * Operations. For example the addition of integer is different than that of floating point.
-  * Checking. Different types may be incompatible from each other, or the conversion may cause loss of information that requires programmer's attention.
+    <span class="hidden">For example `1000 0000` can represent 128 for integer, but it can also represent -128 for another type of integer (`int8_t`).</span>
+  * Operations<span class="hidden">. For example the addition of integer is different than that of floating point.</span>
+  * Checking.<span class="hidden"> Different types may be incompatible from each other, or the conversion may cause loss of information that requires programmer's attention.</span>
 
-    Compiler performs ***type checking*** to make sure that the programmer uses the right type on the right place. For example, not putting a text into a math function.
+    <span class="hidden">Compiler performs ***type checking*** to make sure that the programmer uses the right type on the right place. For example, not putting a text into a math function.</span>
 
+<span class="hidden">
 > Note: The memory layout for the same type in different architecture may be different. Search ***memory alignment*** and ***endianness*** for more details.
+</span>
 
 --
 
 ### Primary Types
 
-* ***Integers***: with ***signed*** and ***unsigned***, and various sizes which determines the range of the type. It would ***overflow/underflow*** when the actual data is beyond the the range of the data type. For example, if the range of a signed `int8_t` is -128 to 127, when you add 1 to 127, it would overflow to -128. (assuming two's complement is used)  
-  Different size of integers can be denoted using the combination of `int` `long` `short`, and `unsigned` for unsigned integers. However, the standard only specified the minimum size of the integers, the actual size is implementation dependent. For ***fixed size integers*** which are mainly used in embedded development, use `stdint.h`.
-* ***Floating point***: represents numbers in ***scientific notation***, with sign, exponent and significant field. It can represent real numbers with a wide range, but with limited precision (indeed the number is nearly never exact). `float` for single-precision, `double` for double-precision and `long double` for even higher precision.
-* ***Characters***: 8 bit integer primarily used to store ***ASCII*** characters. The reserved word is `char`.
-* ***Boolean***: 1 bit integer used to denote true and false. The reserved word is `bool`.
+* ***Integers***<span class="hidden">: with ***signed*** and ***unsigned***, and various sizes which determines the range of the type. It would ***overflow/underflow*** when the actual data is beyond the the range of the data type. For example, if the range of a signed `int8_t` is -128 to 127, when you add 1 to 127, it would overflow to -128. (assuming two's complement is used)</span>  
+  <span class="hidden">Different size of integers can be denoted using the combination of `int` `long` `short`, and `unsigned` for unsigned integers. However, the standard only specified the minimum size of the integers, the actual size is implementation dependent. For ***fixed size integers*** which are mainly used in embedded development, use `stdint.h`.</span>
+* ***Floating point***<span class="hidden">: represents numbers in ***scientific notation***, with sign, exponent and significant field. It can represent real numbers with a wide range, but with limited precision (indeed the number is nearly never exact). `float` for single-precision, `double` for double-precision and `long double` for even higher precision.</span>
+* ***Characters***<span class="hidden">: 8 bit integer primarily used to store ***ASCII*** characters. The reserved word is `char`.</span>
+* ***Boolean***<span class="hidden">: 1 bit integer used to denote true and false. The reserved word is `bool`.</span>
 
 --
 
 ### Basic Operations
 
-* Integers and floating point numbers support basic arithmetic operations, including `+` (addition), `-` (subtraction), `*` (multiplication), `/` (division), `%` (mod).
+* Integers and floating point numbers support basic arithmetic operations<span class="hidden">, including `+` (addition), `-` (subtraction), `*` (multiplication), `/` (division), `%` (mod).</span>
 
-* Integers and numbers support comparison which would return boolean, including `==` (equal), `>` (larger than), `<` (smaller than), `>=` (larger than or equal to), `<=` (larger than or equal to), `!=` (not equal).
+* Integers and numbers support comparison which would return boolean<span class="hidden">, including `==` (equal), `>` (larger than), `<` (smaller than), `>=` (larger than or equal to), `<=` (larger than or equal to), `!=` (not equal).</span>
 
-* Integers also support bitwise operations, including `&` (bitwise and), `|` (bitwise or), `~` (bitwise not), `^` (bitwise xor), `<<` (left shift), `>>` (right shift).
+* Integers also support bitwise operations<span class="hidden">, including `&` (bitwise and), `|` (bitwise or), `~` (bitwise not), `^` (bitwise xor), `<<` (left shift), `>>` (right shift).</span>
 
-* Booleans support logical operations, including `&&` (logical and), `||` (logical or), `!` (logical not). *Logical and* and *logical or* would have a *short-circuiting* behavior, as the second operand (the right one) will not be evaluated if the result can be deduced from the first operand, thus may reduce processing time if used wisely.
+* Booleans support logical operations<span class="hidden">, including `&&` (logical and), `||` (logical or), `!` (logical not). *Logical and* and *logical or* would have a *short-circuiting* behavior, as the second operand (the right one) will not be evaluated if the result can be deduced from the first operand, thus may reduce processing time if used wisely.</span>
 
 * Operators have different precedence, parenthesis (`()`) can be used to change the precedence like in ordinary arithmetic.
 
@@ -114,8 +114,10 @@ printf(/*a comment in the middle of a line*/  "bar");
 --
 
 ### Function Call
-
+<span class="hidden">
 * Functions are subprograms that can be executed to perform certain task, may take inputs and may evaluate to a certain value. They will be discussed in depth later in the tutorial.
+</span>
+
 
 * Inputs to the program are called ***parameters***, and evaluated value of the function is called the ***return value***. Format of function call is `<name>(<param1>, <param2>, ...)`: 
   ```c
@@ -124,7 +126,7 @@ printf(/*a comment in the middle of a line*/  "bar");
   exit()
   ```
   
-* Functions that can be defined entirely by its input and output mapping are called ***pure functions***. Effects of the function apart from returning the return value are called `side effects`. For example, `printf` is not a pure function, and its side effect is printing to stdout of the terminal. Note that side effects may be desired feature of a function.
+* <span class="hidden">Functions that can be defined entirely by its input and output mapping are called </span>***pure functions***<span class="hidden">. Effects of the function apart from returning the return value are called `side effects`. For example, `printf` is not a pure function, and its side effect is printing to stdout of the terminal. Note that side effects may be desired feature of a function.</span>
 
 --
 
@@ -171,7 +173,7 @@ printf(/*a comment in the middle of a line*/  "bar");
   bool b = true;  // declare a boolean called b assigned with value true
   ```
 
-* Variables have ***scope***, ***global*** (the entire program) if not declared inside any function, or ***local*** to the block of code it is in. Variable names should be unique within its scope, and only the code within the scope of the variable have access to the variable.
+* Variables have ***scope***<span class="hidden">, ***global*** (the entire program) if not declared inside any function, or ***local*** to the block of code it is in. Variable names should be unique within its scope, and only the code within the scope of the variable have access to the variable.</span>
 
   ```c
   int globalVariableA;   // global
@@ -300,9 +302,9 @@ printf(/*a comment in the middle of a line*/  "bar");
 
 ### Functions
 
-- Function is a set of statements together to perform a task, may take ***parameters*** (input data, same as variables), and may evaluate to a value (called ***return value***). For example, `sin` function takes a double, computes the sine value and returns a double.
+- Function is a set of statements together to perform a task, may take ***parameters*** (input data, same as variables), and may evaluate to a value (called ***return value***). <span class="hidden">For example, `sin` function takes a double, computes the sine value and returns a double.</span>
 
-- ***Function Declaration***: tells the compiler the name, parameters and the return type of a function.
+- ***Function Declaration***<span class="hidden">: tells the compiler the name, parameters and the return type of a function.</span>
 
   ```
   <type> <name>(<type> <parameter name>, ...);
@@ -312,7 +314,7 @@ printf(/*a comment in the middle of a line*/  "bar");
   double sin(double rad);
   ```
 
-- ***Function Definition***: defines how the function run, basically the declaration with the function body. (statements to be run, with a ***return statement*** to return the evaluated value)
+- ***Function Definition***<span class="hidden">: defines how the function run, basically the declaration with the function body. (statements to be run, with a ***return statement*** to return the evaluated value)</span>
 
   ```
   <type> <name>(<type> <parameter name>, ...)
@@ -369,9 +371,9 @@ printf(/*a comment in the middle of a line*/  "bar");
   1 + 1.0 // int + double, int will be converted into double
   ```
 
-* Type conversion take place during assignment to different variable of different type, or when operation involves two data of different types. Type with smaller range will be converted to the type with larger range. For example integers will be converted to float, but float will not be converted to integers *normally*.
+* Type conversion<span class="hidden"> take place during assignment to different variable of different type, or when operation involves two data of different types. Type with smaller range will be converted to the type with larger range. For example integers will be converted to float, but float will not be converted to integers *normally*.</span>
 
-* When we want to force type conversion, we would use type casting. For example, converting from float to integer which may cause loss of information.
+* When we want to force type conversion, we would use type casting.<span class="hidden"> For example, converting from float to integer which may cause loss of information.</span>
 
   ```c
   int a = (int)1.234;

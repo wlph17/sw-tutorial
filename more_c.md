@@ -11,9 +11,9 @@ style: style.css
 
 ### Array
 
-* Apart from the simple data types we mentioned in the previous tutorial, we can have complex user defined types. Array, which is the implementation of list data structure, is one of the user defined data structure.
+* <span class="hidden">Apart from the simple data types we mentioned in the previous tutorial, we can have complex user defined types. </span>Array<span class="hidden">, which is the implementation of list data structure,</span> is one of the user defined data structure.
 
-* Array stores *fixed size* elements consecutively in the memory, and we can find out the address of the element using simple arithmetic (*array location* + *element size* \* *element index*).
+* Array stores *fixed size* elements consecutively in the memory<span class="hidden">, and we can find out the address of the element using simple arithmetic (*array location* + *element size* \* *element index*).</span>
 
 * Declaration example:
 
@@ -27,19 +27,19 @@ style: style.css
   
   Example: `list[0]` get the first element of array `list`.
   
-* If the index is larger than the size of the array, the element we access will be wrong and errors may occur (either logical or causing the program to crash). This is usually called *index out of range*. 
+* <span class="hidden">If the index is larger than the size of the array, the element we access will be wrong and errors may occur (either logical or causing the program to crash). This is usually called</span> *index out of range*<span class="hidden">.</span> 
 
 --
 
 ### String
 
-* In general array does not contain size information. We would encode the size information either by passing a size explicitly or by terminate the array with a special element.
+* In general array does not contain size information. <span class="hidden">We would encode the size information either by passing a size explicitly or by terminate the array with a special element.</span>
 
 * String is an array of characters, terminated by a *null character* which is a zero (`\0` in string). We use ASCII code to store our characters. 
 
 * String literals are surrounded by double quotes: `"a string"`. Single quotes are used to represent a single character: `'a'`.
 
-* Common escape sequence: `\"` representing a double quote character, `\\` representing a backslash character, `\n` representing linefeed (LF, which is Unix style newline) character, `\r` representing carriage return (CR, CRLF is the Windows style newline), `\t` tab, `\0` null character and a lot more...
+* Common escape sequence<span class="hidden">: `\"` representing a double quote character, `\\` representing a backslash character, `\n` representing linefeed (LF, which is Unix style newline) character, `\r` representing carriage return (CR, CRLF is the Windows style newline), `\t` tab, `\0` null character and a lot more...</span>
 
 * Example:
 
@@ -68,7 +68,7 @@ style: style.css
 
 * `typedef` could be used to assign meaningful names to types, for abstraction or better readability: `typedef <type> <name>`. Example: `typedef long long UUID`.
 
-* This can also be used to avoid using `enum` in the type signature of variables: `typedef enum {A} Foo` and you can define a variable by `Foo a = A`. Technically this enum is anonymous. This also means that the declaration itself can be used as a type name. (see the example next section)
+* This can also be used to avoid using `enum` in the type signature of variables: `typedef enum {A} Foo` and you can define a variable by `Foo a = A`. <span class="hidden">Technically this enum is anonymous. This also means that the declaration itself can be used as a type name. (see the example next section)</span>
 
 --
 
@@ -100,7 +100,7 @@ style: style.css
 
 * Pointer is a variable *pointing* towards certain memory location. Usually used when we want to avoid copying the value.
 
-* `&` is *address-of* operator when used as a unary operator, means get a pointer towards a variable. `*` denotes pointer type when used in type declaration, and *dereference* operator when used with a pointer (get back the variable it points towards).
+* `&` is *address-of* operator<span class="hidden"> when used as a unary operator, means get a pointer towards a variable</span>. `*` denotes pointer type when used in type declaration, and *dereference* operator when used with a pointer <span class="hidden">(get back the variable it points towards)</span>.
 
   ```c
   int a = 0;
@@ -123,7 +123,7 @@ style: style.css
 
 ### Pointer Arithmetic & Array
 
-* Pointers and array variables are indeed the same. The only difference is that pointers can be changed but arrays are constant (pointer constant, not value constant).  
+* Pointers and array variables are indeed the same. <span class="hidden">The only difference is that pointers can be changed but arrays are constant (pointer constant, not value constant).</span>  
   For an array of type `T []`, its pointer equivalent is `T *const`.
 
 * For a pointer `p`, `p + c` where `c` is an integer, means `&(p[c])`. So `*(p + c)` means `p[c]`.
@@ -137,16 +137,16 @@ style: style.css
   printf("%d", p2 - p1);  // 4
   ```
 
-* However, pointer is still different from array. Address of array is the same as the array itself. However, pointer to a pointer is valid. Please refer to the last example in the next slide.
+* However, pointer is still different from array. <span class="hidden">Address of array is the same as the array itself. However, pointer to a pointer is valid. Please refer to the last example in the next slide.</span>
 
 --
 
 ### Fixed-Size Array, Multi-Dimensional Array & Pointer of Pointer
 
-* Fixed-size array, which contains the number of elements in its type signature, is ***not*** the same as an ordinary array, and different size means different type.  
-  This is because the type definition of fixed size array specifies the size of the entire array.
+* Fixed-size array, which contains the number of elements in its type signature, is ***not*** the same as an ordinary array, and different size means different type.<span class="hidden">  
+  This is because the type definition of fixed size array specifies the size of the entire array.</span>
 
-* Multi-Dimensional array means having an array of arrays. Only fixed-size arrays can be used as the elements, as the size of the elements of an array has to be known. It is use similar to normal arrays. (the left-most size is the inner element)
+* Multi-Dimensional array means having an array of arrays. <span class="hidden">Only fixed-size arrays can be used as the elements, as the size of the elements of an array has to be known. It is used similar to normal arrays. (the left-most size is the inner element)</span>
 
   ```c
   int matrix34[3][4];
@@ -154,7 +154,7 @@ style: style.css
   matrix34[0][0] = 0;
   ```
 
-* We can create pointer to pointer by applying the asterisk twice: `int **a`. This is usually used to represent pointer to array. For example an array of string pointers:
+* We can create pointer to pointer by applying the asterisk twice: `int **a`. <span class="hidden">This is usually used to represent pointer to array. For example an array of string pointers:</span>
 
   ```c
   char foo[] = "foo", bar[] = "bar";

@@ -379,6 +379,10 @@ h1 {
   margin-top: 200px;
 }
 
+span.hidden {
+  display: none;
+}
+
 p {
   margin: 0.2em;
 }
@@ -592,8 +596,8 @@ ADD B to A
 <li><p>This is <strong><em>hardware dependent</em></strong>, and <strong><em>verbose</em></strong> for some more complex programs.</p>
 </li>
 <li>Programmers developed <strong><em>high level</em></strong> programming languages to deal with this problem, they are:<ul>
-<li>More abstract, thus more concise and less machine dependent (you can care less about the low level implementation).</li>
-<li>More restricted, which can prevent programmers from doing something stupid, and also improve code readability and maintainability.</li>
+<li>More abstract<span class="hidden">, thus more concise and less machine dependent (you can care less about the low level implementation).</span></li>
+<li>More restricted<span class="hidden">, which can prevent programmers from doing something stupid, and also improve code readability and maintainability.</span></li>
 </ul>
 </li>
 </ul>
@@ -607,19 +611,16 @@ ADD B to A
 <li>High level: neglecting the hardware details.</li>
 </ul>
 </li>
-<li>C language is a high level programming language. It provides some abstractions which enables us to write larger programs. However, it still provides ways for us to do low level work, which is needed in embedded programming.</li>
+<li>C language is a high level programming language. <span class="hidden">It provides some abstractions which enables us to write larger programs. However, it still provides ways for us to do low level work, which is needed in embedded programming.</span></li>
 </ul>
-<blockquote>
-<p>Note: C++ is a superset of C, which provides more abstractions than C language while being compatible with C. We use both C and C++ in our team. As C++ is more complicated and not really needed in the internal competition, we would not talk about C++ now.</p>
-</blockquote>
 </section>
   </div>
   <div class="slide hidden " id="slide-4">
     <section class="slide-content"><h3 id="compiler">Compiler</h3>
 <ul>
 <li>High level languages cannot be executed by computers directly. It has to be translated into machine code before execution, this translation is called <strong><em>compile</em></strong> and is done by a <strong><em>compiler</em></strong> (compiler toolchain, basically a set of tools).</li>
-<li>When compiling programs for another kind of machine having different set of instruction set, a <strong><em>cross-compiler</em></strong> would be needed, and the translation would be called <strong><em>cross-compile</em></strong>. In short, the compiler used in our embedded programming is different from what we use normally.</li>
-<li>Apart from compiling C files, we may have to include assembly code files or library files to generate the entire executable program. The process of generating the executable program is called <strong><em>building</em></strong>, and due to the complexity of the build process we often make use of build tools such as <strong>GNU Make</strong> to automate the build process.</li>
+<li>When compiling programs for another kind of machine having different set of instruction set, a <strong><em>cross-compiler</em></strong> would be needed, and the translation would be called <strong><em>cross-compile</em></strong>. <span class="hidden">In short, the compiler used in our embedded programming is different from what we use normally.</span></li>
+<li><span class="hidden">Apart from compiling C files, we may have to include assembly code files or library files to generate the entire executable program. </span>The process of generating the executable program is called <strong><em>building</em></strong>, <span class="hidden">and due to the complexity of the build process</span> we often make use of build tools such as <strong>GNU Make</strong> to automate the build process.</li>
 </ul>
 </section>
   </div>
@@ -645,41 +646,43 @@ ADD B to A
 <ul>
 <li><p>Data in programs have <strong><em>types</em></strong>, such as integer, floating point (represented using scientific notation), string (text) etc, with the following usages:</p>
 <ul>
-<li><p>Memory layout. Data are stored in memory as bits and bytes, which on their own has no meaning. Type defines the interpretation of the memory.</p>
-<p>For example <code>1000 0000</code> can represent 128 for integer, but it can also represent -128 for another type of integer (<code>int8_t</code>).</p>
+<li><p>Memory layout<span class="hidden">. Data are stored in memory as bits and bytes, which on their own has no meaning. Type defines the interpretation of the memory.</span></p>
+<p><span class="hidden">For example <code>1000 0000</code> can represent 128 for integer, but it can also represent -128 for another type of integer (<code>int8_t</code>).</span></p>
 </li>
-<li>Operations. For example the addition of integer is different than that of floating point.</li>
-<li><p>Checking. Different types may be incompatible from each other, or the conversion may cause loss of information that requires programmer&#39;s attention.</p>
-<p>Compiler performs <strong><em>type checking</em></strong> to make sure that the programmer uses the right type on the right place. For example, not putting a text into a math function.</p>
-</li>
-</ul>
+<li>Operations<span class="hidden">. For example the addition of integer is different than that of floating point.</span></li>
+<li><p>Checking.<span class="hidden"> Different types may be incompatible from each other, or the conversion may cause loss of information that requires programmer&#39;s attention.</span></p>
+<p><span class="hidden">Compiler performs <strong><em>type checking</em></strong> to make sure that the programmer uses the right type on the right place. For example, not putting a text into a math function.</span></p>
 </li>
 </ul>
+</li>
+</ul>
+<p><span class="hidden"></p>
 <blockquote>
-<p>Note: The memory layout for the same type in different architecture may be different. Search <strong><em>memory alignment</em></strong> and <strong><em>endianness</em></strong> for more details.</p>
+<p>Note: The memory layout for the same type in different architecture may be different. Search <strong><em>memory alignment</em></strong> and <strong><em>endianness</em></strong> for more details.
+</span></p>
 </blockquote>
 </section>
   </div>
   <div class="slide hidden " id="slide-7">
     <section class="slide-content"><h3 id="primary-types">Primary Types</h3>
 <ul>
-<li><strong><em>Integers</em></strong>: with <strong><em>signed</em></strong> and <strong><em>unsigned</em></strong>, and various sizes which determines the range of the type. It would <strong><em>overflow/underflow</em></strong> when the actual data is beyond the the range of the data type. For example, if the range of a signed <code>int8_t</code> is -128 to 127, when you add 1 to 127, it would overflow to -128. (assuming two&#39;s complement is used)<br>Different size of integers can be denoted using the combination of <code>int</code> <code>long</code> <code>short</code>, and <code>unsigned</code> for unsigned integers. However, the standard only specified the minimum size of the integers, the actual size is implementation dependent. For <strong><em>fixed size integers</em></strong> which are mainly used in embedded development, use <code>stdint.h</code>.</li>
-<li><strong><em>Floating point</em></strong>: represents numbers in <strong><em>scientific notation</em></strong>, with sign, exponent and significant field. It can represent real numbers with a wide range, but with limited precision (indeed the number is nearly never exact). <code>float</code> for single-precision, <code>double</code> for double-precision and <code>long double</code> for even higher precision.</li>
-<li><strong><em>Characters</em></strong>: 8 bit integer primarily used to store <strong><em>ASCII</em></strong> characters. The reserved word is <code>char</code>.</li>
-<li><strong><em>Boolean</em></strong>: 1 bit integer used to denote true and false. The reserved word is <code>bool</code>.</li>
+<li><strong><em>Integers</em></strong><span class="hidden">: with <strong><em>signed</em></strong> and <strong><em>unsigned</em></strong>, and various sizes which determines the range of the type. It would <strong><em>overflow/underflow</em></strong> when the actual data is beyond the the range of the data type. For example, if the range of a signed <code>int8_t</code> is -128 to 127, when you add 1 to 127, it would overflow to -128. (assuming two&#39;s complement is used)</span><br><span class="hidden">Different size of integers can be denoted using the combination of <code>int</code> <code>long</code> <code>short</code>, and <code>unsigned</code> for unsigned integers. However, the standard only specified the minimum size of the integers, the actual size is implementation dependent. For <strong><em>fixed size integers</em></strong> which are mainly used in embedded development, use <code>stdint.h</code>.</span></li>
+<li><strong><em>Floating point</em></strong><span class="hidden">: represents numbers in <strong><em>scientific notation</em></strong>, with sign, exponent and significant field. It can represent real numbers with a wide range, but with limited precision (indeed the number is nearly never exact). <code>float</code> for single-precision, <code>double</code> for double-precision and <code>long double</code> for even higher precision.</span></li>
+<li><strong><em>Characters</em></strong><span class="hidden">: 8 bit integer primarily used to store <strong><em>ASCII</em></strong> characters. The reserved word is <code>char</code>.</span></li>
+<li><strong><em>Boolean</em></strong><span class="hidden">: 1 bit integer used to denote true and false. The reserved word is <code>bool</code>.</span></li>
 </ul>
 </section>
   </div>
   <div class="slide hidden " id="slide-8">
     <section class="slide-content"><h3 id="basic-operations">Basic Operations</h3>
 <ul>
-<li><p>Integers and floating point numbers support basic arithmetic operations, including <code>+</code> (addition), <code>-</code> (subtraction), <code>*</code> (multiplication), <code>/</code> (division), <code>%</code> (mod).</p>
+<li><p>Integers and floating point numbers support basic arithmetic operations<span class="hidden">, including <code>+</code> (addition), <code>-</code> (subtraction), <code>*</code> (multiplication), <code>/</code> (division), <code>%</code> (mod).</span></p>
 </li>
-<li><p>Integers and numbers support comparison which would return boolean, including <code>==</code> (equal), <code>&gt;</code> (larger than), <code>&lt;</code> (smaller than), <code>&gt;=</code> (larger than or equal to), <code>&lt;=</code> (larger than or equal to), <code>!=</code> (not equal).</p>
+<li><p>Integers and numbers support comparison which would return boolean<span class="hidden">, including <code>==</code> (equal), <code>&gt;</code> (larger than), <code>&lt;</code> (smaller than), <code>&gt;=</code> (larger than or equal to), <code>&lt;=</code> (larger than or equal to), <code>!=</code> (not equal).</span></p>
 </li>
-<li><p>Integers also support bitwise operations, including <code>&amp;</code> (bitwise and), <code>|</code> (bitwise or), <code>~</code> (bitwise not), <code>^</code> (bitwise xor), <code>&lt;&lt;</code> (left shift), <code>&gt;&gt;</code> (right shift).</p>
+<li><p>Integers also support bitwise operations<span class="hidden">, including <code>&amp;</code> (bitwise and), <code>|</code> (bitwise or), <code>~</code> (bitwise not), <code>^</code> (bitwise xor), <code>&lt;&lt;</code> (left shift), <code>&gt;&gt;</code> (right shift).</span></p>
 </li>
-<li><p>Booleans support logical operations, including <code>&amp;&amp;</code> (logical and), <code>||</code> (logical or), <code>!</code> (logical not). <em>Logical and</em> and <em>logical or</em> would have a <em>short-circuiting</em> behavior, as the second operand (the right one) will not be evaluated if the result can be deduced from the first operand, thus may reduce processing time if used wisely.</p>
+<li><p>Booleans support logical operations<span class="hidden">, including <code>&amp;&amp;</code> (logical and), <code>||</code> (logical or), <code>!</code> (logical not). <em>Logical and</em> and <em>logical or</em> would have a <em>short-circuiting</em> behavior, as the second operand (the right one) will not be evaluated if the result can be deduced from the first operand, thus may reduce processing time if used wisely.</span></p>
 </li>
 <li><p>Operators have different precedence, parenthesis (<code>()</code>) can be used to change the precedence like in ordinary arithmetic.</p>
 <pre><code class="lang-c"><span class="hljs-number">5</span> * (<span class="hljs-number">1</span> + <span class="hljs-number">1</span>)
@@ -690,16 +693,19 @@ ADD B to A
   </div>
   <div class="slide hidden " id="slide-9">
     <section class="slide-content"><h3 id="function-call">Function Call</h3>
+<p><span class="hidden"></p>
 <ul>
-<li><p>Functions are subprograms that can be executed to perform certain task, may take inputs and may evaluate to a certain value. They will be discussed in depth later in the tutorial.</p>
-</li>
+<li>Functions are subprograms that can be executed to perform certain task, may take inputs and may evaluate to a certain value. They will be discussed in depth later in the tutorial.
+</span></li>
+</ul>
+<ul>
 <li><p>Inputs to the program are called <strong><em>parameters</em></strong>, and evaluated value of the function is called the <strong><em>return value</em></strong>. Format of function call is <code>&lt;name&gt;(&lt;param1&gt;, &lt;param2&gt;, ...)</code>: </p>
 <pre><code class="lang-c"><span class="hljs-built_in">sin</span>(<span class="hljs-number">1</span>)
 <span class="hljs-built_in">printf</span>(<span class="hljs-string">"1 + 1 = %d"</span>, <span class="hljs-number">1</span> + <span class="hljs-number">1</span>)
 <span class="hljs-built_in">exit</span>()
 </code></pre>
 </li>
-<li><p>Functions that can be defined entirely by its input and output mapping are called <strong><em>pure functions</em></strong>. Effects of the function apart from returning the return value are called <code>side effects</code>. For example, <code>printf</code> is not a pure function, and its side effect is printing to stdout of the terminal. Note that side effects may be desired feature of a function.</p>
+<li><p><span class="hidden">Functions that can be defined entirely by its input and output mapping are called </span><strong><em>pure functions</em></strong><span class="hidden">. Effects of the function apart from returning the return value are called <code>side effects</code>. For example, <code>printf</code> is not a pure function, and its side effect is printing to stdout of the terminal. Note that side effects may be desired feature of a function.</span></p>
 </li>
 </ul>
 </section>
@@ -740,7 +746,7 @@ ADD B to A
 <span class="hljs-keyword">bool</span> b = <span class="hljs-literal">true</span>;  <span class="hljs-comment">// declare a boolean called b assigned with value true</span>
 </code></pre>
 </li>
-<li><p>Variables have <strong><em>scope</em></strong>, <strong><em>global</em></strong> (the entire program) if not declared inside any function, or <strong><em>local</em></strong> to the block of code it is in. Variable names should be unique within its scope, and only the code within the scope of the variable have access to the variable.</p>
+<li><p>Variables have <strong><em>scope</em></strong><span class="hidden">, <strong><em>global</em></strong> (the entire program) if not declared inside any function, or <strong><em>local</em></strong> to the block of code it is in. Variable names should be unique within its scope, and only the code within the scope of the variable have access to the variable.</span></p>
 <pre><code class="lang-c"><span class="hljs-keyword">int</span> globalVariableA;   <span class="hljs-comment">// global</span>
 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">someFunction</span><span class="hljs-params">()</span> </span>{
     <span class="hljs-keyword">int</span> localVariable; <span class="hljs-comment">// local to the function</span>
@@ -857,14 +863,14 @@ else
   <div class="slide hidden " id="slide-16">
     <section class="slide-content"><h3 id="functions">Functions</h3>
 <ul>
-<li><p>Function is a set of statements together to perform a task, may take <strong><em>parameters</em></strong> (input data, same as variables), and may evaluate to a value (called <strong><em>return value</em></strong>). For example, <code>sin</code> function takes a double, computes the sine value and returns a double.</p>
+<li><p>Function is a set of statements together to perform a task, may take <strong><em>parameters</em></strong> (input data, same as variables), and may evaluate to a value (called <strong><em>return value</em></strong>). <span class="hidden">For example, <code>sin</code> function takes a double, computes the sine value and returns a double.</span></p>
 </li>
-<li><p><strong><em>Function Declaration</em></strong>: tells the compiler the name, parameters and the return type of a function.</p>
+<li><p><strong><em>Function Declaration</em></strong><span class="hidden">: tells the compiler the name, parameters and the return type of a function.</span></p>
 <pre><code>&lt;type&gt; &lt;name&gt;(&lt;type&gt; &lt;parameter name&gt;, ...);
 </code></pre><pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">sin</span><span class="hljs-params">(<span class="hljs-keyword">double</span> rad)</span></span>;
 </code></pre>
 </li>
-<li><p><strong><em>Function Definition</em></strong>: defines how the function run, basically the declaration with the function body. (statements to be run, with a <strong><em>return statement</em></strong> to return the evaluated value)</p>
+<li><p><strong><em>Function Definition</em></strong><span class="hidden">: defines how the function run, basically the declaration with the function body. (statements to be run, with a <strong><em>return statement</em></strong> to return the evaluated value)</span></p>
 <pre><code>&lt;type&gt; &lt;name&gt;(&lt;type&gt; &lt;parameter name&gt;, ...)
 {
     &lt;statements&gt;
@@ -912,9 +918,9 @@ else
 <pre><code class="lang-c"><span class="hljs-number">1</span> + <span class="hljs-number">1.0</span> <span class="hljs-comment">// int + double, int will be converted into double</span>
 </code></pre>
 </li>
-<li><p>Type conversion take place during assignment to different variable of different type, or when operation involves two data of different types. Type with smaller range will be converted to the type with larger range. For example integers will be converted to float, but float will not be converted to integers <em>normally</em>.</p>
+<li><p>Type conversion<span class="hidden"> take place during assignment to different variable of different type, or when operation involves two data of different types. Type with smaller range will be converted to the type with larger range. For example integers will be converted to float, but float will not be converted to integers <em>normally</em>.</span></p>
 </li>
-<li><p>When we want to force type conversion, we would use type casting. For example, converting from float to integer which may cause loss of information.</p>
+<li><p>When we want to force type conversion, we would use type casting.<span class="hidden"> For example, converting from float to integer which may cause loss of information.</span></p>
 <pre><code class="lang-c"><span class="hljs-keyword">int</span> a = (<span class="hljs-keyword">int</span>)<span class="hljs-number">1.234</span>;
 </code></pre>
 </li>

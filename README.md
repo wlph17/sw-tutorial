@@ -15,7 +15,7 @@ Materials will be released/modified later.
 
 ## Notes
 
-Note: These notes are by no means complete, readers are expected to read more supplementary articles below. Also, as these notes are written by senior team members, there might be wrong explanations and readers are encouraged to submit issues to help us improve the notes.
+Note: These notes are not meant to be complete, readers are expected to read more supplementary articles below. Also, as these notes are written by senior team members, there might be wrong explanations and readers are encouraged to submit issues to help us improve the notes.
 
 The web ppt CSS is optimized for 16:9 computer screen only. (in short, my screen only)
 

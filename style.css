@@ -21,6 +21,10 @@ h1 {
   margin-top: 200px;
 }
 
+span.hidden {
+  display: none;
+}
+
 p {
   margin: 0.2em;
 }
