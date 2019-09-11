@@ -572,7 +572,7 @@ em {
     <div class="progress-bar"></div>
   </div>
 
-  <div class="slide " id="slide-1">
+  <div class="slide" id="slide-1">
     <section class="slide-content"><h1 id="c-language-basics">C Language Basics</h1>
 <pre><code class="lang-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
 <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
@@ -584,7 +584,7 @@ em {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden " id="slide-2">
+  <div class="slide hidden" id="slide-2">
     <section class="slide-content"><h3 id="motivation">Motivation</h3>
 <ul>
 <li><p>Computer executes simple instructions sequentially. Consider the pseudo-code below:</p>
@@ -603,7 +603,7 @@ ADD B to A
 </ul>
 </section>
   </div>
-  <div class="slide hidden " id="slide-3">
+  <div class="slide hidden" id="slide-3">
     <section class="slide-content"><h3 id="motivation-cont-">Motivation (cont.)</h3>
 <ul>
 <li>Abstractions: neglecting implementation details.<ul>
@@ -615,22 +615,20 @@ ADD B to A
 </ul>
 </section>
   </div>
-  <div class="slide hidden " id="slide-4">
+  <div class="slide hidden" id="slide-4">
     <section class="slide-content"><h3 id="compiler">Compiler</h3>
 <ul>
-<li>High level languages cannot be executed by computers directly. It has to be translated into machine code before execution, this translation is called <strong><em>compile</em></strong> and is done by a <strong><em>compiler</em></strong> (compiler toolchain, basically a set of tools).</li>
-<li>When compiling programs for another kind of machine having different set of instruction set, a <strong><em>cross-compiler</em></strong> would be needed, and the translation would be called <strong><em>cross-compile</em></strong>. <span class="hidden">In short, the compiler used in our embedded programming is different from what we use normally.</span></li>
+<li>High level languages cannot be executed by computers directly. It has to be translated into machine code before execution, this translation is called <strong><em>compiling</em></strong> and is done by a <strong><em>compiler</em></strong> (compiler toolchain, basically a set of tools).</li>
+<li>To compile programs for machines using different instruction set, a <strong><em>cross-compiler</em></strong> would be needed, and the translation would be called <strong><em>cross-compiling</em></strong>. <span class="hidden">In short, the compiler used in our embedded programming is different from what we use normally.</span></li>
 <li><span class="hidden">Apart from compiling C files, we may have to include assembly code files or library files to generate the entire executable program. </span>The process of generating the executable program is called <strong><em>building</em></strong>, <span class="hidden">and due to the complexity of the build process</span> we often make use of build tools such as <strong>GNU Make</strong> to automate the build process.</li>
 </ul>
 </section>
   </div>
-  <div class="slide hidden " id="slide-5">
+  <div class="slide hidden" id="slide-5">
     <section class="slide-content"><h3 id="comments">Comments</h3>
 <ul>
-<li><p>Comments are texts that are intended for human read only, and will be ignored by the compiler.</p>
-</li>
-<li><p>Single line comments starts with <code>//</code> and continue to the end of the line.</p>
-</li>
+<li>Comments are texts that are intended for human read only, and will be ignored by the compiler.</li>
+<li>Single line comments starts with <code>//</code> and continue to the end of the line.</li>
 <li>Multi-line comments starts with <code>/*</code> and ends with <code>*/</code>. Note that it is not required to be multi-line.</li>
 </ul>
 <pre><code class="lang-c"><span class="hljs-comment">// a comment using the entire line</span>
@@ -641,21 +639,17 @@ ADD B to A
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden " id="slide-6">
+  <div class="slide hidden" id="slide-6">
     <section class="slide-content"><h3 id="types">Types</h3>
 <ul>
-<li><p>Data in programs have <strong><em>types</em></strong>, such as integer, floating point (represented using scientific notation), string (text) etc, with the following usages:</p>
-<ul>
-<li><p>Memory layout<span class="hidden">. Data are stored in memory as bits and bytes, which on their own has no meaning. Type defines the interpretation of the memory.</span></p>
-<p><span class="hidden">For example <code>1000 0000</code> can represent 128 for integer, but it can also represent -128 for another type of integer (<code>int8_t</code>).</span></p>
+<li>Data in programs have <strong><em>types</em></strong>, such as integer, floating point (approximation of real numbers), string (text) etc, with the following usages:<ul>
+<li>Defining their memory layout<span class="hidden">. Data are stored in memory as bits and bytes, which on their own has no meaning. Type defines the interpretation of the memory. For example <code>1000 0000</code> can represent 128 for integer, but it can also represent -128 for another type of integer (<code>int8_t</code>).</span></li>
+<li>Specifying affiliated operations/functions <span class="hidden">. For example the addition of integer is different than that of floating point.</span></li>
+<li>Compatibility (Type) Checking.<span class="hidden"> Different types may be incompatible from each other, or the conversion may cause loss of information that requires programmer&#39;s attention.</span></li>
+</ul>
 </li>
-<li>Operations<span class="hidden">. For example the addition of integer is different than that of floating point.</span></li>
-<li><p>Checking.<span class="hidden"> Different types may be incompatible from each other, or the conversion may cause loss of information that requires programmer&#39;s attention.</span></p>
+</ul>
 <p><span class="hidden">Compiler performs <strong><em>type checking</em></strong> to make sure that the programmer uses the right type on the right place. For example, not putting a text into a math function.</span></p>
-</li>
-</ul>
-</li>
-</ul>
 <p><span class="hidden"></p>
 <blockquote>
 <p>Note: The memory layout for the same type in different architecture may be different. Search <strong><em>memory alignment</em></strong> and <strong><em>endianness</em></strong> for more details.
@@ -663,17 +657,17 @@ ADD B to A
 </blockquote>
 </section>
   </div>
-  <div class="slide hidden " id="slide-7">
+  <div class="slide hidden" id="slide-7">
     <section class="slide-content"><h3 id="primary-types">Primary Types</h3>
 <ul>
 <li><strong><em>Integers</em></strong><span class="hidden">: with <strong><em>signed</em></strong> and <strong><em>unsigned</em></strong>, and various sizes which determines the range of the type. It would <strong><em>overflow/underflow</em></strong> when the actual data is beyond the the range of the data type. For example, if the range of a signed <code>int8_t</code> is -128 to 127, when you add 1 to 127, it would overflow to -128. (assuming two&#39;s complement is used)</span><br><span class="hidden">Different size of integers can be denoted using the combination of <code>int</code> <code>long</code> <code>short</code>, and <code>unsigned</code> for unsigned integers. However, the standard only specified the minimum size of the integers, the actual size is implementation dependent. For <strong><em>fixed size integers</em></strong> which are mainly used in embedded development, use <code>stdint.h</code>.</span></li>
-<li><strong><em>Floating point</em></strong><span class="hidden">: represents numbers in <strong><em>scientific notation</em></strong>, with sign, exponent and significant field. It can represent real numbers with a wide range, but with limited precision (indeed the number is nearly never exact). <code>float</code> for single-precision, <code>double</code> for double-precision and <code>long double</code> for even higher precision.</span></li>
+<li><strong><em>Floating point</em></strong><span class="hidden">: represents <strong><em>real numbers</em></strong>, with their sign, exponent and significand. It can represent real numbers with a wide range, but with limited precision (indeed the number is nearly never exact). <code>float</code> for single-precision, <code>double</code> for double-precision and <code>long double</code> for even higher precision.</span></li>
 <li><strong><em>Characters</em></strong><span class="hidden">: 8 bit integer primarily used to store <strong><em>ASCII</em></strong> characters. The reserved word is <code>char</code>.</span></li>
 <li><strong><em>Boolean</em></strong><span class="hidden">: 1 bit integer used to denote true and false. The reserved word is <code>bool</code>.</span></li>
 </ul>
 </section>
   </div>
-  <div class="slide hidden " id="slide-8">
+  <div class="slide hidden" id="slide-8">
     <section class="slide-content"><h3 id="basic-operations">Basic Operations</h3>
 <ul>
 <li><p>Integers and floating point numbers support basic arithmetic operations<span class="hidden">, including <code>+</code> (addition), <code>-</code> (subtraction), <code>*</code> (multiplication), <code>/</code> (division), <code>%</code> (mod).</span></p>
@@ -691,7 +685,7 @@ ADD B to A
 </ul>
 </section>
   </div>
-  <div class="slide hidden " id="slide-9">
+  <div class="slide hidden" id="slide-9">
     <section class="slide-content"><h3 id="function-call">Function Call</h3>
 <p><span class="hidden"></p>
 <ul>
@@ -710,7 +704,7 @@ ADD B to A
 </ul>
 </section>
   </div>
-  <div class="slide hidden " id="slide-10">
+  <div class="slide hidden" id="slide-10">
     <section class="slide-content"><h3 id="statements-expressions">Statements &amp; Expressions</h3>
 <ul>
 <li><p><strong><em>Expression</em></strong> would evaluate to a single value.</p>
@@ -734,7 +728,7 @@ ADD B to A
 </ul>
 </section>
   </div>
-  <div class="slide hidden " id="slide-11">
+  <div class="slide hidden" id="slide-11">
     <section class="slide-content"><h3 id="variables">Variables</h3>
 <ul>
 <li><p>Computer programs store data in variables. </p>
@@ -760,7 +754,7 @@ ADD B to A
 </ul>
 </section>
   </div>
-  <div class="slide hidden " id="slide-12">
+  <div class="slide hidden" id="slide-12">
     <section class="slide-content"><h3 id="variables-cont-">Variables (cont.)</h3>
 <ul>
 <li><p>Variables can be modified by assigning it with another value:</p>
@@ -791,7 +785,7 @@ a = <span class="hljs-number">5</span>; <span class="hljs-comment">// this would
 </ul>
 </section>
   </div>
-  <div class="slide hidden " id="slide-13">
+  <div class="slide hidden" id="slide-13">
     <section class="slide-content"><h3 id="special-operators">Special Operators</h3>
 <ul>
 <li><p>Compound assignment operators: <code>a += b</code> means <code>a = a + b</code>. Similar operators: <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>%=</code>, <code>&amp;=</code>, <code>|=</code>, <code>^=</code>, <code>&lt;&lt;=</code>, <code>&gt;&gt;=</code>.</p>
@@ -805,7 +799,7 @@ a = <span class="hljs-number">5</span>; <span class="hljs-comment">// this would
 </ul>
 </section>
   </div>
-  <div class="slide hidden " id="slide-14">
+  <div class="slide hidden" id="slide-14">
     <section class="slide-content"><h3 id="conditional-statement-operator">Conditional Statement &amp; Operator</h3>
 <ul>
 <li><p>We may want to execute statements conditionally, i.e. do something only when certain condition is met. We would use <code>if</code> block to do so.</p>
@@ -832,7 +826,7 @@ else
 </ul>
 </section>
   </div>
-  <div class="slide hidden " id="slide-15">
+  <div class="slide hidden" id="slide-15">
     <section class="slide-content"><h3 id="loops">Loops</h3>
 <ul>
 <li><p>Programs may do repetitive task via loops, which repeat certain statements.</p>
@@ -860,7 +854,7 @@ else
 </ul>
 </section>
   </div>
-  <div class="slide hidden " id="slide-16">
+  <div class="slide hidden" id="slide-16">
     <section class="slide-content"><h3 id="functions">Functions</h3>
 <ul>
 <li><p>Function is a set of statements together to perform a task, may take <strong><em>parameters</em></strong> (input data, same as variables), and may evaluate to a value (called <strong><em>return value</em></strong>). <span class="hidden">For example, <code>sin</code> function takes a double, computes the sine value and returns a double.</span></p>
@@ -880,7 +874,7 @@ else
 </ul>
 </section>
   </div>
-  <div class="slide hidden " id="slide-17">
+  <div class="slide hidden" id="slide-17">
     <section class="slide-content"><h3 id="functions-cont-">Functions (cont.)</h3>
 <ul>
 <li><p>Functions can have no return value, the type of this kind of functions are <code>void</code>.</p>
@@ -911,7 +905,7 @@ else
 </ul>
 </section>
   </div>
-  <div class="slide hidden " id="slide-18">
+  <div class="slide hidden" id="slide-18">
     <section class="slide-content"><h3 id="type-conversion-casting">Type Conversion &amp; Casting</h3>
 <ul>
 <li><p>Different types have different representation in memory, so we may need to convert data to do operations between 2 data of different type.</p>

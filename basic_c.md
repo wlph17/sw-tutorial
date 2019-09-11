@@ -45,8 +45,8 @@ int main()
 
 ### Compiler
 
-* High level languages cannot be executed by computers directly. It has to be translated into machine code before execution, this translation is called ***compile*** and is done by a ***compiler*** (compiler toolchain, basically a set of tools).
-* When compiling programs for another kind of machine having different set of instruction set, a ***cross-compiler*** would be needed, and the translation would be called ***cross-compile***. <span class="hidden">In short, the compiler used in our embedded programming is different from what we use normally.</span>
+* High level languages cannot be executed by computers directly. It has to be translated into machine code before execution, this translation is called ***compiling*** and is done by a ***compiler*** (compiler toolchain, basically a set of tools).
+* To compile programs for machines using different instruction set, a ***cross-compiler*** would be needed, and the translation would be called ***cross-compiling***. <span class="hidden">In short, the compiler used in our embedded programming is different from what we use normally.</span>
 * <span class="hidden">Apart from compiling C files, we may have to include assembly code files or library files to generate the entire executable program. </span>The process of generating the executable program is called ***building***, <span class="hidden">and due to the complexity of the build process</span> we often make use of build tools such as **GNU Make** to automate the build process.
 
 --
@@ -54,7 +54,6 @@ int main()
 ### Comments
 
 * Comments are texts that are intended for human read only, and will be ignored by the compiler.
-
 * Single line comments starts with `//` and continue to the end of the line.
 * Multi-line comments starts with `/*` and ends with `*/`. Note that it is not required to be multi-line.
 
@@ -70,14 +69,12 @@ printf(/*a comment in the middle of a line*/  "bar");
 
 ### Types
 
-* Data in programs have ***types***, such as integer, floating point (represented using scientific notation), string (text) etc, with the following usages:
-  * Memory layout<span class="hidden">. Data are stored in memory as bits and bytes, which on their own has no meaning. Type defines the interpretation of the memory.</span>
+* Data in programs have ***types***, such as integer, floating point (approximation of real numbers), string (text) etc, with the following usages:
+  * Defining their memory layout<span class="hidden">. Data are stored in memory as bits and bytes, which on their own has no meaning. Type defines the interpretation of the memory. For example `1000 0000` can represent 128 for integer, but it can also represent -128 for another type of integer (`int8_t`).</span>
+  * Specifying affiliated operations/functions <span class="hidden">. For example the addition of integer is different than that of floating point.</span>
+  * Compatibility (Type) Checking.<span class="hidden"> Different types may be incompatible from each other, or the conversion may cause loss of information that requires programmer's attention.</span>
 
-    <span class="hidden">For example `1000 0000` can represent 128 for integer, but it can also represent -128 for another type of integer (`int8_t`).</span>
-  * Operations<span class="hidden">. For example the addition of integer is different than that of floating point.</span>
-  * Checking.<span class="hidden"> Different types may be incompatible from each other, or the conversion may cause loss of information that requires programmer's attention.</span>
-
-    <span class="hidden">Compiler performs ***type checking*** to make sure that the programmer uses the right type on the right place. For example, not putting a text into a math function.</span>
+<span class="hidden">Compiler performs ***type checking*** to make sure that the programmer uses the right type on the right place. For example, not putting a text into a math function.</span>
 
 <span class="hidden">
 > Note: The memory layout for the same type in different architecture may be different. Search ***memory alignment*** and ***endianness*** for more details.
@@ -89,7 +86,7 @@ printf(/*a comment in the middle of a line*/  "bar");
 
 * ***Integers***<span class="hidden">: with ***signed*** and ***unsigned***, and various sizes which determines the range of the type. It would ***overflow/underflow*** when the actual data is beyond the the range of the data type. For example, if the range of a signed `int8_t` is -128 to 127, when you add 1 to 127, it would overflow to -128. (assuming two's complement is used)</span>  
   <span class="hidden">Different size of integers can be denoted using the combination of `int` `long` `short`, and `unsigned` for unsigned integers. However, the standard only specified the minimum size of the integers, the actual size is implementation dependent. For ***fixed size integers*** which are mainly used in embedded development, use `stdint.h`.</span>
-* ***Floating point***<span class="hidden">: represents numbers in ***scientific notation***, with sign, exponent and significant field. It can represent real numbers with a wide range, but with limited precision (indeed the number is nearly never exact). `float` for single-precision, `double` for double-precision and `long double` for even higher precision.</span>
+* ***Floating point***<span class="hidden">: represents ***real numbers***, with their sign, exponent and significand. It can represent real numbers with a wide range, but with limited precision (indeed the number is nearly never exact). `float` for single-precision, `double` for double-precision and `long double` for even higher precision.</span>
 * ***Characters***<span class="hidden">: 8 bit integer primarily used to store ***ASCII*** characters. The reserved word is `char`.</span>
 * ***Boolean***<span class="hidden">: 1 bit integer used to denote true and false. The reserved word is `bool`.</span>
 
