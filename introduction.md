@@ -6,6 +6,7 @@ style: style.css
 --
 
 # Software Tutorial
+
 ## Introduction
 
 --
@@ -38,14 +39,3 @@ style: style.css
   * Intel NUC mini computer
   * Libraries: ROS, OpenCV
   * OS: Ubuntu 18
-
---
-
-### Outline of tutorials
-
-1. Basics of C language
-2. More C language
-3. Computer system details
-4. Introduction to embedded system
-5. Basics of RTOS
-6. CAN protocol and PID control

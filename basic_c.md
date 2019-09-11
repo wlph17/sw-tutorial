@@ -45,7 +45,7 @@ int main()
 
 --
 
-### Compile
+### Compiler
 
 * High level languages cannot be executed by computers directly. It has to be translated into machine code before execution, this translation is called ***compile*** and is done by a ***compiler*** (compiler toolchain, basically a set of tools).
 * When compiling programs for another kind of machine having different set of instruction set, a ***cross-compiler*** would be needed, and the translation would be called ***cross-compile***. In short, the compiler used in our embedded programming is different from what we use normally.

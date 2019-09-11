@@ -1,0 +1,926 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>Software Tutorial - More C &amp; Basics of Git</title>
+  <style type="text/css">
+    body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #222;
+  font-size: 100%;
+}
+
+.slide {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0; right: 0;
+  background-color: #f7f7f7;
+}
+
+.slide-content {
+  width: 800px;
+  height: 600px;
+  overflow: hidden;
+  margin: 80px auto 0 auto;
+  padding: 30px;
+
+  font-weight: 200;
+  font-size: 200%;
+  line-height: 1.375;
+}
+
+.controls {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+.arrow {
+  width: 0; height: 0;
+  border: 30px solid #333;
+  float: left;
+  margin-right: 30px;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.prev {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+
+  border-left-width: 0;
+  border-right-width: 50px;
+}
+
+.next {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+
+  border-left-width: 50px;
+  border-right-width: 0;
+}
+
+.prev:hover {
+  border-right-color: #888;
+  cursor: pointer;
+}
+
+.next:hover {
+  border-left-color: #888;
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 300%;
+  line-height: 1.2;
+  text-align: center;
+  margin: 170px 0 0;
+}
+
+h2 {
+  font-size: 100%;
+  line-height: 1.2;
+  margin: 5px 0;
+  text-align: center;
+  font-weight: 200;
+}
+
+h3 {
+  font-size: 140%;
+  line-height: 1.2;
+  border-bottom: 1px solid #aaa;
+  margin: 0;
+  padding-bottom: 15px;
+}
+
+ul {
+  padding: 20px 0 0 60px;
+  font-weight: 200;
+  line-height: 1.375;
+}
+
+.author h1 {
+  font-size: 170%;
+  font-weight: 200;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.author h3 {
+  font-weight: 100;
+  text-align: center;
+  font-size: 95%;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  color: #44a4dd;
+}
+
+a:hover {
+  color: #66b5ff;
+}
+
+pre {
+  font-size: 60%;
+  line-height: 1.3;
+}
+
+.progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  z-index: 1;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 3px;
+  background-color: #b4b4b4;
+
+  -webkit-transition: width 0.05s ease-out;
+  -moz-transition: width 0.05s ease-out;
+  -o-transition: width 0.05s ease-out;
+  transition: width 0.05s ease-out;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 850px) {
+
+  body {
+    font-size: 70%;
+  }
+
+  .slide-content {
+    width: auto;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  h1 {
+    margin-top: 120px;
+  }
+
+  .prev, .prev:hover {
+    border-right-color: rgba(135, 135, 135, 0.5);
+  }
+
+  .next, .next:hover {
+    border-left-color: rgba(135, 135, 135, 0.5);
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 50%;
+    overflow: hidden;
+  }
+
+  .slide-content {
+    padding: 10px;
+    margin-top: 10px;
+    height: 340px;
+  }
+
+  h1 {
+    margin-top: 50px;
+  }
+
+  ul {
+    padding-left: 25px;
+  }
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact;
+  }
+
+  @page {
+    size: letter;
+  }
+
+  .hidden {
+    display: inline;
+  }
+
+  html {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  body {
+    margin: 0 auto !important;
+    border: 0;
+    padding: 0;
+    float: none !important;
+    overflow: visible;
+    background: none !important;
+    font-size: 52%;
+  }
+
+  .progress, .controls {
+    display: none;
+  }
+
+  .slide {
+    position: static;
+  }
+
+  .slide-content {
+    border: 1px solid #222;
+    margin-top: 0;
+    margin-bottom: 40px;
+    height: 3.5in;
+    overflow: visible;
+  }
+
+  .slide:nth-child(even) {
+    /* 2 slides per page */
+    page-break-before: always;
+  }
+}
+
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+  background-color: #222;
+  color: #eee;
+}
+
+strong {
+    font-weight: bold;
+}
+
+pre code {
+  color: #ccc;
+  font-size: 140%;
+}
+
+h1 {
+  margin-top: 200px;
+}
+
+p {
+  margin: 0.2em;
+}
+
+.slide {
+  background-color: inherit;
+  display: absolute;
+}
+
+.keyword {
+  color: #0086b3 !important;
+  font-weight: inherit !important;
+}
+
+.tag {
+  color: #900 !important;
+}
+
+ul, ol {
+    padding-top: 0;
+}
+
+.arrow {
+  width: 0; height: 0;
+  border: 15px solid #333;
+  float: left;
+  margin-right: 15px;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+blockquote {
+    border-left: 0.2em solid #333;
+    padding-left: 1em;
+    margin: 2em;
+    color: #AAA;
+}
+
+.prev {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+
+  border-left-width: 0;
+  border-right-width: 25px;
+}
+
+.next {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+
+  border-left-width: 25px;
+  border-right-width: 0;
+}
+
+code {
+  background-color: inherit;
+}
+
+em {
+  border-bottom: 1px solid #666;
+}
+
+.slide-content {
+  width: 70vw;
+  height: 80vh;
+  overflow: hidden;
+  margin: auto;
+  margin-top: 10vh; 
+  padding: 0;
+
+  font-weight: 200;
+  font-size: 200%;
+  line-height: 1.375;
+}
+
+/* a11y-dark theme */
+/* Based on the Tomorrow Night Eighties theme: https://github.com/isagalaev/highlight.js/blob/master/src/styles/tomorrow-night-eighties.css */
+/* @author: ericwbailey */
+
+/* Comment */
+.hljs-comment,
+.hljs-quote {
+  color: #d4d0ab;
+}
+
+/* Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+  color: #ffa07a;
+}
+
+/* Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+  color: #f5ab35;
+}
+
+/* Yellow */
+.hljs-attribute {
+  color: #ffd700;
+}
+
+/* Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+  color: #abe338;
+}
+
+/* Blue */
+.hljs-title,
+.hljs-section {
+  color: #00e0e0;
+}
+
+/* Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+  color: #dcc6e0;
+}
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  background: #2b2b2b;
+  color: #f8f8f2;
+  padding: 0.5em;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+@media screen and (-ms-high-contrast: active) {
+  .hljs-addition,
+  .hljs-attribute,
+  .hljs-built_in,
+  .hljs-builtin-name,
+  .hljs-bullet,
+  .hljs-comment,
+  .hljs-link,
+  .hljs-literal,
+  .hljs-meta,
+  .hljs-number,
+  .hljs-params,
+  .hljs-string,
+  .hljs-symbol,
+  .hljs-type,
+  .hljs-quote {
+        color: highlight;
+    }
+
+    .hljs-keyword,
+    .hljs-selector-tag {
+        font-weight: bold;
+    }
+}
+
+  </style>
+</head>
+<body>
+    <div class="progress">
+    <div class="progress-bar"></div>
+  </div>
+
+  <div class="slide" id="slide-1">
+    <section class="slide-content"><h1 id="user-defined-types-pointers">User Defined Types &amp; Pointers</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-2">
+    <section class="slide-content"><h3 id="array">Array</h3>
+<ul>
+<li><p>Apart from the simple data types we mentioned in the previous tutorial, we can have complex user defined types. Array, which is the implementation of list data structure, is one of the user defined data structure.</p>
+</li>
+<li><p>Array stores <em>fixed size</em> elements consecutively in the memory, and we can find out the address of the element using simple arithmetic (<em>array location</em> + <em>element size</em> * <em>element index</em>).</p>
+</li>
+<li><p>Declaration example:</p>
+<pre><code class="lang-c"><span class="hljs-keyword">int</span> <span class="hljs-built_in">list</span>[<span class="hljs-number">10</span>];            <span class="hljs-comment">// initialize a 10 element integer array with undefined values</span>
+<span class="hljs-keyword">int</span> list2[] = {<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>}; <span class="hljs-comment">// initialize a 3 element integer array with values</span>
+<span class="hljs-keyword">int</span> list3[<span class="hljs-number">5</span>] = {<span class="hljs-number">0</span>};      <span class="hljs-comment">// initialize all 5 elements with 0 (this is special syntax)</span>
+</code></pre>
+</li>
+<li><p>We can access the element of the array by <em>name</em>[<em>index</em>]. The index starts with 0.   </p>
+<p>Example: <code>list[0]</code> get the first element of array <code>list</code>.</p>
+</li>
+<li><p>If the index is larger than the size of the array, the element we access will be wrong and errors may occur (either logical or causing the program to crash). This is usually called <em>index out of range</em>.</p>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-3">
+    <section class="slide-content"><h3 id="string">String</h3>
+<ul>
+<li><p>In general array does not contain size information. We would encode the size information either by passing a size explicitly or by terminate the array with a special element.</p>
+</li>
+<li><p>String is an array of characters, terminated by a <em>null character</em> which is a zero (<code>\0</code> in string). We use ASCII code to store our characters. </p>
+</li>
+<li><p>String literals are surrounded by double quotes: <code>&quot;a string&quot;</code>. Single quotes are used to represent a single character: <code>&#39;a&#39;</code>.</p>
+</li>
+<li><p>Common escape sequence: <code>\&quot;</code> representing a double quote character, <code>\\</code> representing a backslash character, <code>\n</code> representing linefeed (LF, which is Unix style newline) character, <code>\r</code> representing carriage return (CR, CRLF is the Windows style newline), <code>\t</code> tab, <code>\0</code> null character and a lot more...</p>
+</li>
+<li><p>Example:</p>
+<pre><code class="lang-c"><span class="hljs-keyword">char</span> text[] = <span class="hljs-string">"abc"</span>;
+<span class="hljs-keyword">char</span> text2[] = {<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>, <span class="hljs-string">'\0'</span>};
+</code></pre>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-4">
+    <section class="slide-content"><h3 id="enumeration-typedef">Enumeration &amp; typedef</h3>
+<ul>
+<li><p>Enumerations are used to assign meaningful names to certain integer values.</p>
+</li>
+<li><p>Example:</p>
+<pre><code class="lang-c"><span class="hljs-keyword">enum</span> Direction {
+    UP = <span class="hljs-number">5</span>,
+    DOWN
+};
+<span class="hljs-keyword">enum</span> Direction direction = UP;
+</code></pre>
+</li>
+<li><p>The numerical values assigned are consecutive and begins at 0 by default, but can be overridden. If overridden, it is programmer&#39;s responsibility to check for duplicate: <code>enum Test {A, B, C = 1};</code> The <code>B</code> and <code>C</code> are both 1.</p>
+</li>
+<li><p><code>typedef</code> could be used to assign meaningful names to types, for abstraction or better readability: <code>typedef &lt;type&gt; &lt;name&gt;</code>. Example: <code>typedef long long UUID</code>.</p>
+</li>
+<li><p>This can also be used to avoid using <code>enum</code> in the type signature of variables: <code>typedef enum {A} Foo</code> and you can define a variable by <code>Foo a = A</code>. Technically this enum is anonymous. This also means that the declaration itself can be used as a type name. (see the example next section)</p>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-5">
+    <section class="slide-content"><h3 id="structure">Structure</h3>
+<ul>
+<li><p>Structures can be used to store multiple data in one type to represent more complex data types:</p>
+<pre><code class="lang-c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">InterviewApplicant</span> {</span>
+    <span class="hljs-keyword">char</span> itsc[<span class="hljs-number">10</span>];
+    <span class="hljs-keyword">char</span> name[<span class="hljs-number">20</span>];
+    <span class="hljs-keyword">enum</span> {
+        MECHANICAL,
+        SOFTWARE,
+        HARDWARE,
+        MANAGEMENT
+    } pos;
+};
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">InterviewApplicant</span> <span class="hljs-title">InterviewApplicant_t</span>;</span>
+InterviewApplicant_t john;
+</code></pre>
+</li>
+<li><p>Similar to enumerations, <code>struct</code> keyword is required before the name of the struct type, we could use <code>typedef</code> to define a shorthand.</p>
+</li>
+<li><p>We can access the fields of a struct through the dot  (<code>.</code>) operator. Example: <code>john.pos = SOFTWARE;</code>.</p>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-6">
+    <section class="slide-content"><h3 id="pointer">Pointer</h3>
+<ul>
+<li><p>Pointer is a variable <em>pointing</em> towards certain memory location. Usually used when we want to avoid copying the value.</p>
+</li>
+<li><p><code>&amp;</code> is <em>address-of</em> operator when used as a unary operator, means get a pointer towards a variable. <code>*</code> denotes pointer type when used in type declaration, and <em>dereference</em> operator when used with a pointer (get back the variable it points towards).</p>
+<pre><code class="lang-c"><span class="hljs-keyword">int</span> a = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">int</span> b = a;            <span class="hljs-comment">// a is copied</span>
+b += <span class="hljs-number">1</span>;               <span class="hljs-comment">// this only affects b but not a</span>
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d\n"</span>, a);    <span class="hljs-comment">// a is not modified, still 0</span>
+<span class="hljs-keyword">int</span> *pointerToA = &amp;a; <span class="hljs-comment">// &amp;a is the address of a, this is the pointer to a</span>
+*pointerToA += <span class="hljs-number">1</span>;     <span class="hljs-comment">// *pointerToA means dereference the pointer</span>
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d\n"</span>, a);    <span class="hljs-comment">// a is modified now</span>
+</code></pre>
+</li>
+<li><p>Array variables are also pointer variables, pointing towards the first element of the array. The value of the array variable is also its address.</p>
+<pre><code class="lang-c"><span class="hljs-keyword">int</span> a[] = {<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>};
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d"</span>, *a == a[<span class="hljs-number">0</span>]);
+</code></pre>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-7">
+    <section class="slide-content"><h3 id="pointer-arithmetic-array">Pointer Arithmetic &amp; Array</h3>
+<ul>
+<li><p>Pointers and array variables are indeed the same. The only difference is that pointers can be changed but arrays are constant (pointer constant, not value constant).<br>For an array of type <code>T []</code>, its pointer equivalent is <code>T *const</code>.</p>
+</li>
+<li><p>For a pointer <code>p</code>, <code>p + c</code> where <code>c</code> is an integer, means <code>&amp;(p[c])</code>. So <code>*(p + c)</code> means <code>p[c]</code>.</p>
+</li>
+<li><p>For 2 pointers <code>p1</code> and <code>p2</code>, <code>p2 - p1</code> means the number of elements between the 2 pointers.</p>
+<pre><code class="lang-c"><span class="hljs-keyword">int</span> <span class="hljs-built_in">array</span>[<span class="hljs-number">5</span>];
+<span class="hljs-keyword">int</span> *p1 = <span class="hljs-built_in">array</span>;
+<span class="hljs-keyword">int</span> *p2 = <span class="hljs-built_in">array</span> + <span class="hljs-number">4</span>;
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d"</span>, p2 - p1);  <span class="hljs-comment">// 4</span>
+</code></pre>
+</li>
+<li><p>However, pointer is still different from array. Address of array is the same as the array itself. However, pointer to a pointer is valid. Please refer to the last example in the next slide.</p>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-8">
+    <section class="slide-content"><h3 id="fixed-size-array-multi-dimensional-array-pointer-of-pointer">Fixed-Size Array, Multi-Dimensional Array &amp; Pointer of Pointer</h3>
+<ul>
+<li><p>Fixed-size array, which contains the number of elements in its type signature, is <strong><em>not</em></strong> the same as an ordinary array, and different size means different type.<br>This is because the type definition of fixed size array specifies the size of the entire array.</p>
+</li>
+<li><p>Multi-Dimensional array means having an array of arrays. Only fixed-size arrays can be used as the elements, as the size of the elements of an array has to be known. It is use similar to normal arrays. (the left-most size is the inner element)</p>
+<pre><code class="lang-c"><span class="hljs-keyword">int</span> matrix34[<span class="hljs-number">3</span>][<span class="hljs-number">4</span>];
+<span class="hljs-keyword">int</span> (*ptr)[<span class="hljs-number">3</span>] = matrix34;  <span class="hljs-comment">// pointer to a fixed size array</span>
+matrix34[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;
+</code></pre>
+</li>
+<li><p>We can create pointer to pointer by applying the asterisk twice: <code>int **a</code>. This is usually used to represent pointer to array. For example an array of string pointers:</p>
+<pre><code class="lang-c"><span class="hljs-keyword">char</span> foo[] = <span class="hljs-string">"foo"</span>, bar[] = <span class="hljs-string">"bar"</span>;
+<span class="hljs-keyword">char</span> *_foo = foo, *_bar = bar;
+<span class="hljs-keyword">char</span> **names[<span class="hljs-number">2</span>];
+names[<span class="hljs-number">0</span>] = &amp;_foo;  <span class="hljs-comment">// wrong when using &amp;foo as foo is an array </span>
+names[<span class="hljs-number">1</span>] = &amp;_bar;  <span class="hljs-comment">// wrong when using &amp;bar as bar is an array</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">2</span>; ++i) <span class="hljs-built_in">printf</span>(*names[<span class="hljs-number">0</span>]);
+</code></pre>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-9">
+    <section class="slide-content"><h1 id="preprocessor">Preprocessor</h1>
+<h2 id="welcome-to-the-world-of-metaprogramming">Welcome to the world of metaprogramming</h2>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-10">
+    <section class="slide-content"><h3 id="include-statement">Include Statement</h3>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-11">
+    <section class="slide-content"><h3 id="macro">Macro</h3>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-12">
+    <section class="slide-content"><h3 id="compiler-directives">Compiler Directives</h3>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-13">
+    <section class="slide-content"><h3 id="commonly-used-patterns">Commonly Used Patterns</h3>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-14">
+    <section class="slide-content"><h1 id="git">Git</h1>
+<h2 id="even-better-than-google-cloud">Even better than Google Cloud</h2>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-15">
+    <section class="slide-content"><h3 id="distributed-ordering">Distributed &amp; Ordering</h3>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-16">
+    <section class="slide-content"><h3 id="versioning-101">Versioning 101</h3>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-17">
+    <section class="slide-content"><h3 id="operations-in-git">Operations in Git</h3>
+</section>
+  </div>
+
+  <div class="controls">
+    <div class="arrow prev"></div>
+    <div class="arrow next"></div>
+  </div>
+
+
+  <script type="text/javascript">
+    /**
+ * Returns the current page number of the presentation.
+ */
+function currentPosition() {
+  return parseInt(document.querySelector('.slide:not(.hidden)').id.slice(6));
+}
+
+
+/**
+ * Navigates forward n pages
+ * If n is negative, we will navigate in reverse
+ */
+function navigate(n) {
+  var position = currentPosition();
+  var numSlides = document.getElementsByClassName('slide').length;
+
+  /* Positions are 1-indexed, so we need to add and subtract 1 */
+  var nextPosition = (position - 1 + n) % numSlides + 1;
+
+  /* Normalize nextPosition in-case of a negative modulo result */
+  nextPosition = (nextPosition - 1 + numSlides) % numSlides + 1;
+
+  document.getElementById('slide-' + position).classList.add('hidden');
+  document.getElementById('slide-' + nextPosition).classList.remove('hidden');
+
+  updateProgress();
+  updateURL();
+  updateTabIndex();
+}
+
+
+/**
+ * Updates the current URL to include a hashtag of the current page number.
+ */
+function updateURL() {
+  try {
+    window.history.replaceState({} , null, '#' + currentPosition());
+  } catch (e) {
+    window.location.hash = currentPosition();
+  }
+}
+
+
+/**
+ * Sets the progress indicator.
+ */
+function updateProgress() {
+  var progressBar = document.querySelector('.progress-bar');
+
+  if (progressBar !== null) {
+    var numSlides = document.getElementsByClassName('slide').length;
+    var position = currentPosition() - 1;
+    var percent = (numSlides === 1) ? 100 : 100 * position / (numSlides - 1);
+    progressBar.style.width = percent.toString() + '%';
+  }
+}
+
+
+/**
+ * Removes tabindex property from all links on the current slide, sets
+ * tabindex = -1 for all links on other slides. Prevents slides from appearing
+ * out of control.
+ */
+function updateTabIndex() {
+  var allLinks = document.querySelectorAll('.slide a');
+  var position = currentPosition();
+  var currentPageLinks = document.getElementById('slide-' + position).querySelectorAll('a');
+  var i;
+
+  for (i = 0; i < allLinks.length; i++) {
+    allLinks[i].setAttribute('tabindex', -1);
+  }
+
+  for (i = 0; i < currentPageLinks.length; i++) {
+    currentPageLinks[i].removeAttribute('tabindex');
+  }
+}
+
+/**
+ * Determines whether or not we are currently in full screen mode
+ */
+function isFullScreen() {
+  return document.fullscreenElement ||
+         document.mozFullScreenElement ||
+         document.webkitFullscreenElement ||
+         document.msFullscreenElement;
+}
+
+/**
+ * Toggle fullScreen mode on document element.
+ * Works on chrome (>= 15), firefox (>= 9), ie (>= 11), opera(>= 12.1), safari (>= 5).
+ */
+function toggleFullScreen() {
+  /* Convenient renames */
+  var docElem = document.documentElement;
+  var doc = document;
+
+  docElem.requestFullscreen =
+      docElem.requestFullscreen ||
+      docElem.msRequestFullscreen ||
+      docElem.mozRequestFullScreen ||
+      docElem.webkitRequestFullscreen.bind(docElem, Element.ALLOW_KEYBOARD_INPUT);
+
+  doc.exitFullscreen =
+      doc.exitFullscreen ||
+      doc.msExitFullscreen ||
+      doc.mozCancelFullScreen ||
+      doc.webkitExitFullscreen;
+
+  isFullScreen() ? doc.exitFullscreen() : docElem.requestFullscreen();
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Update the tabindex to prevent weird slide transitioning
+  updateTabIndex();
+
+  // If the location hash specifies a page number, go to it.
+  var page = window.location.hash.slice(1);
+  if (page) {
+    navigate(parseInt(page) - 1);
+  }
+
+  document.onkeydown = function (e) {
+    var kc = e.keyCode;
+
+    // left, down, H, J, backspace, PgUp - BACK
+    // up, right, K, L, space, PgDn - FORWARD
+    // enter - FULLSCREEN
+    if (kc === 37 || kc === 40 || kc === 8 || kc === 72 || kc === 74 || kc === 33) {
+      navigate(-1);
+    } else if (kc === 38 || kc === 39 || kc === 32 || kc === 75 || kc === 76 || kc === 34) {
+      navigate(1);
+    } else if (kc === 13) {
+      toggleFullScreen();
+    }
+  };
+
+  if (document.querySelector('.next') && document.querySelector('.prev')) {
+    document.querySelector('.next').onclick = function (e) {
+      e.preventDefault();
+      navigate(1);
+    };
+
+    document.querySelector('.prev').onclick = function (e) {
+      e.preventDefault();
+      navigate(-1);
+    };
+  }
+});
+
+
+  </script>
+</body>
+</html>
