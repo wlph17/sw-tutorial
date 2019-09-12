@@ -21,6 +21,10 @@ style: style.css
     * Computer vision and gimbal control algorithm for aimbot development.
     * Task planning using ROS for sentry robot.
     * Power control algorithms to maximize utilization of the available power.
+* Hardware
+    * Wire to wire, wire to connector soldering
+    * PCB design, fabrication and assembly
+    * Everything mentioned in "Embedded"
 
 --
 
