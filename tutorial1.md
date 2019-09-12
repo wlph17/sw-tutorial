@@ -1,5 +1,5 @@
 title: Software Tutorial - Basic C Language
-output: basic_c.html
+output: tutorial1.html
 controls: true
 style: style.css
 
@@ -19,14 +19,13 @@ int main()
 --
 
 ### Motivation
-* Computer executes simple instructions sequentially. Consider the pseudo-code below:
+* Computer executes simple instructions sequentially. Consider the assembly below:
+  ```assembly
+  MOV r0, #1        /* save 1 in register 0            */
+  MOV r1, #1        /* save 1 in register 1            */
+  ADD r0, r0, r1    /* add r0 and r1 and save it in r0 */
   ```
-  SET A = 1
-  SET B = 2
-  ADD B to A
-  //Finally: A = 3, B = 2
-  ```
-
+  
 * This is ***hardware dependent***, and ***verbose*** for some more complex programs.
 * Programmers developed ***high level*** programming languages to deal with this problem, they are:
   * More abstract<span class="hidden">, thus more concise and less machine dependent (you can care less about the low level implementation).</span>
@@ -114,9 +113,7 @@ printf(/*a comment in the middle of a line*/  "bar");
 --
 
 ### Function Call
-<span class="hidden">
 * Functions are subprograms that can be executed to perform certain task, may take inputs and may evaluate to a certain value. They will be discussed in depth later in the tutorial.
-</span>
 
 
 * Inputs to the program are called ***parameters***, and evaluated value of the function is called the ***return value***. Format of function call is `<name>(<param1>, <param2>, ...)`: 
@@ -387,5 +384,7 @@ printf(/*a comment in the middle of a line*/  "bar");
   ```
 
   
+
+
 
 

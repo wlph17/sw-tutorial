@@ -1,5 +1,5 @@
 title: Software Tutorial - More C & Basics of Git
-output: more_c.html
+output: tutorial2.html
 controls: true
 style: style.css
 
@@ -173,19 +173,121 @@ style: style.css
 
 --
 
+### What is a Preprocessor
+
+* Compiler build programs, preprocessor generate code for compiler. However, we usually consider preprocessing as a part of the compiling process.
+* Preprocessor programming is called *metaprogramming*, and is a powerful technique in C/C++ programming.
+
+> Warning: Metaprogramming is powerful, but also hard and dangerous. Overusing it would make your code ***unreadable*** and ***unmaintainable***.
+
+--
+
 ### Include Statement
+
+* Include statement just copy the content of another file to this file. `#include "something.h"`
+
+* The compiler searches through *include path* for the file.
+
+* Source files (`*.c`) contains *definition* of variables and functions.
+
+* Header files (`*.h`) usually contains:
+
+  * Function *declarations*.
+
+  * External variable (not creating a variable, just telling the compiler to find it in another source file).
+
+    ```c
+    extern int something;
+    ```
+
+  * Type definitions, such as `typedef`, `struct`, `enum`.
+
+* Source and headers are usually used together. Source contains the *implementation* and header provides the *interface*.
 
 --
 
 ### Macro
 
+* Object-like Macro: just a shorthand for some expression. (indeed not necessarily an expression)
+
+  ```c
+  #define TWO (1 + 1)
+  int a = TWO; // after preprocessing: int a = (1 + 1);
+  ```
+
+* Function-like Macro: takes argument and put them into the expression.
+
+  ```c
+  #define MUL(a, b) ((a) * (b))
+  int a = MUL(2 + 2, 2); // after preprocessing: int a = ((2 + 2) * (2));
+  ```
+
+* Function-like Macro replace the arguments directly, without the extra brackets the above example will become this:
+
+  ```C
+  #define MUL(a, b) (a * b)
+  int a = MUL(2 + 2, 2); // after preprocessing: int a = (2 + 2 * 2);
+  ```
+
+* Macro are usually defined in header files, it can improve code readability and maintainability if used wisely.
+
+* There are a lot of techniques in macro, check [GCC Tutorial](https://gcc.gnu.org/onlinedocs/cpp/Macros.html) and [Tips and tricks](https://github.com/pfultz2/Cloak/wiki/C-Preprocessor-tricks,-tips,-and-idioms) if interested.
+
 --
 
-### Compiler Directives
+### Conditional Compilation Directives
+
+* Part of the code can be compiled or not compiled depending on certain condition:
+
+* `#ifdef` and `#ifndef` checks for if an identifier is defined or not defined, usually used with macro. <span class="hidden">(compile if a certain macro is defined, which can be passed from compiler options.)</span>
+
+  ```c
+  #ifdef PCA
+  printf("PCA is defined");
+  #endif
+  ```
+  
+* `#if` checks if the expression evaluates to a non-zero value. Simple expressions can be used in the condition (with macros replaced).
+
+* `#elif` (else if) and `#else` can also be used.
+
+  ```c
+  #if 1 + 1 == 2
+  printf("1 + 1 = 2");
+  #else
+  printf("1 + 1 != 2");
+  #endif
+  ```
 
 --
 
-### Commonly Used Patterns
+### Misc.
+
+* Include guard: prevent header file content from imported multiple times.  
+  It can be implemented with macro and conditional compilation:
+
+  ```C
+  #ifndef MODULE_NAME
+  #define MODULE_NAME
+  // module content
+  #endif
+  ```
+
+  or it can also be implemented through special compiler directive (modern compilers usually support this):
+
+  ```C
+  #pragma once
+  ```
+
+* `\` at the end of line would concatenate the next line into the current line, usually used with macro. Example:
+
+  ```C
+  #define IF_BLOCK        \
+      if (1 + 1 == 2)     \
+          printf("true"); \
+      else                \
+          printf("false");
+  ```
 
 --
 
@@ -195,13 +297,27 @@ style: style.css
 
 --
 
-### Distributed & Ordering
+### What is Git
+
+* A distributed version management tool for programmers.
+* Used for version management and conflict handling.
+* Multiple people editing the same thing is problematic. Git handles that by calculating diffs and join them.
+* Git provides multiple branches for management. Different branch for different purposes, such as stable or feature branch, and provides operations for managing them.
+
+![merge](./tutorial2.assets/merge_branch_005.png)
 
 --
 
-### Versioning 101
+### Common Operations & Terminologies
 
---
+* **Add**: Propose changes for later operations (usually used with commit).
+* **Commit**: Save the changes to the current branch, with message describing the changes.
+* **Push**: Send the current branch changes to remote branch.
+* **Pull**: Get the changes from the remote branch to the current branch.
+* **Merge**: Merge changes from another branch.
+* **Conflict**: When diffs overlap with each other and git does not know how to resolve them. Requires programmer to *resolve* and commit.
 
-### Operations in Git
+![git merge conflict](./tutorial2.assets/merge-conflict.png)
+
+
 

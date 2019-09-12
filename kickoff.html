@@ -379,6 +379,10 @@ h1 {
   margin-top: 200px;
 }
 
+span.hidden {
+  display: none;
+}
+
 p {
   margin: 0.2em;
 }
@@ -639,7 +643,7 @@ function navigate(n) {
   var numSlides = document.getElementsByClassName('slide').length;
 
   /* Positions are 1-indexed, so we need to add and subtract 1 */
-  var nextPosition = (position - 1 + n) % numSlides + 1;
+  var p = position + n; if (p <= 0 || p > numSlides) return; var nextPosition = (position - 1 + n) % numSlides + 1;
 
   /* Normalize nextPosition in-case of a negative modulo result */
   nextPosition = (nextPosition - 1 + numSlides) % numSlides + 1;
@@ -776,3 +780,4 @@ document.addEventListener('DOMContentLoaded', function () {
   </script>
 </body>
 </html>
+

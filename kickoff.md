@@ -1,5 +1,5 @@
 title: Software Tutorial - Introduction
-output: introduction.html
+output: kickoff.html
 controls: true
 style: style.css
 
@@ -39,3 +39,5 @@ style: style.css
   * Intel NUC mini computer
   * Libraries: ROS, OpenCV
   * OS: Ubuntu 18
+
+

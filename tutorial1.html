@@ -587,12 +587,12 @@ em {
   <div class="slide hidden " id="slide-2">
     <section class="slide-content"><h3 id="motivation">Motivation</h3>
 <ul>
-<li><p>Computer executes simple instructions sequentially. Consider the pseudo-code below:</p>
-<pre><code>SET A = 1
-SET B = 2
-ADD B to A
-//Finally: A = 3, B = 2
-</code></pre></li>
+<li><p>Computer executes simple instructions sequentially. Consider the assembly below:</p>
+<pre><code class="lang-assembly">MOV r0, #1        /* save 1 in register 0            */
+MOV r1, #1        /* save 1 in register 1            */
+ADD r0, r0, r1    /* add r0 and r1 and save it in r0 */
+</code></pre>
+</li>
 <li><p>This is <strong><em>hardware dependent</em></strong>, and <strong><em>verbose</em></strong> for some more complex programs.</p>
 </li>
 <li>Programmers developed <strong><em>high level</em></strong> programming languages to deal with this problem, they are:<ul>
@@ -693,10 +693,8 @@ ADD B to A
   </div>
   <div class="slide hidden " id="slide-9">
     <section class="slide-content"><h3 id="function-call">Function Call</h3>
-<p><span class="hidden"></p>
 <ul>
-<li>Functions are subprograms that can be executed to perform certain task, may take inputs and may evaluate to a certain value. They will be discussed in depth later in the tutorial.
-</span></li>
+<li>Functions are subprograms that can be executed to perform certain task, may take inputs and may evaluate to a certain value. They will be discussed in depth later in the tutorial.</li>
 </ul>
 <ul>
 <li><p>Inputs to the program are called <strong><em>parameters</em></strong>, and evaluated value of the function is called the <strong><em>return value</em></strong>. Format of function call is <code>&lt;name&gt;(&lt;param1&gt;, &lt;param2&gt;, ...)</code>: </p>
@@ -957,7 +955,7 @@ function navigate(n) {
   var numSlides = document.getElementsByClassName('slide').length;
 
   /* Positions are 1-indexed, so we need to add and subtract 1 */
-  var nextPosition = (position - 1 + n) % numSlides + 1;
+  var p = position + n; if (p <= 0 || p > numSlides) return; var nextPosition = (position - 1 + n) % numSlides + 1;
 
   /* Normalize nextPosition in-case of a negative modulo result */
   nextPosition = (nextPosition - 1 + numSlides) % numSlides + 1;
@@ -1094,3 +1092,4 @@ document.addEventListener('DOMContentLoaded', function () {
   </script>
 </body>
 </html>
+

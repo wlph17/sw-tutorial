@@ -734,36 +734,142 @@ names[<span class="hljs-number">1</span>] = &amp;_bar;  <span class="hljs-commen
 </section>
   </div>
   <div class="slide hidden" id="slide-10">
-    <section class="slide-content"><h3 id="include-statement">Include Statement</h3>
+    <section class="slide-content"><h3 id="what-is-a-preprocessor">What is a Preprocessor</h3>
+<ul>
+<li>Compiler build programs, preprocessor generate code for compiler. However, we usually consider preprocessing as a part of the compiling process.</li>
+<li>Preprocessor programming is called <em>metaprogramming</em>, and is a powerful technique in C/C++ programming.</li>
+</ul>
+<blockquote>
+<p>Warning: Metaprogramming is powerful, but also hard and dangerous. Overusing it would make your code <strong><em>unreadable</em></strong> and <strong><em>unmaintainable</em></strong>.</p>
+</blockquote>
 </section>
   </div>
   <div class="slide hidden" id="slide-11">
-    <section class="slide-content"><h3 id="macro">Macro</h3>
+    <section class="slide-content"><h3 id="include-statement">Include Statement</h3>
+<ul>
+<li><p>Include statement just copy the content of another file to this file. <code>#include &quot;something.h&quot;</code></p>
+</li>
+<li><p>The compiler searches through <em>include path</em> for the file.</p>
+</li>
+<li><p>Source files (<code>*.c</code>) contains <em>definition</em> of variables and functions.</p>
+</li>
+<li><p>Header files (<code>*.h</code>) usually contains:</p>
+<ul>
+<li><p>Function <em>declarations</em>.</p>
+</li>
+<li><p>External variable (not creating a variable, just telling the compiler to find it in another source file).</p>
+<pre><code class="lang-c"><span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> something;
+</code></pre>
+</li>
+<li><p>Type definitions, such as <code>typedef</code>, <code>struct</code>, <code>enum</code>.</p>
+</li>
+</ul>
+</li>
+<li><p>Source and headers are usually used together. Source contains the <em>implementation</em> and header provides the <em>interface</em>.</p>
+</li>
+</ul>
 </section>
   </div>
   <div class="slide hidden" id="slide-12">
-    <section class="slide-content"><h3 id="compiler-directives">Compiler Directives</h3>
+    <section class="slide-content"><h3 id="macro">Macro</h3>
+<ul>
+<li><p>Object-like Macro: just a shorthand for some expression. (indeed not necessarily an expression)</p>
+<pre><code class="lang-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> TWO (1 + 1)</span>
+<span class="hljs-keyword">int</span> a = TWO; <span class="hljs-comment">// after preprocessing: int a = (1 + 1);</span>
+</code></pre>
+</li>
+<li><p>Function-like Macro: takes argument and put them into the expression.</p>
+<pre><code class="lang-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> MUL(a, b) ((a) * (b))</span>
+<span class="hljs-keyword">int</span> a = MUL(<span class="hljs-number">2</span> + <span class="hljs-number">2</span>, <span class="hljs-number">2</span>); <span class="hljs-comment">// after preprocessing: int a = ((2 + 2) * (2));</span>
+</code></pre>
+</li>
+<li><p>Function-like Macro replace the arguments directly, without the extra brackets the above example will become this:</p>
+<pre><code class="lang-C"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> MUL(a, b) (a * b)</span>
+<span class="hljs-keyword">int</span> a = MUL(<span class="hljs-number">2</span> + <span class="hljs-number">2</span>, <span class="hljs-number">2</span>); <span class="hljs-comment">// after preprocessing: int a = (2 + 2 * 2);</span>
+</code></pre>
+</li>
+<li><p>Macro are usually defined in header files, it can improve code readability and maintainability if used wisely.</p>
+</li>
+<li><p>There are a lot of techniques in macro, check <a href="https://gcc.gnu.org/onlinedocs/cpp/Macros.html">GCC Tutorial</a> and <a href="https://github.com/pfultz2/Cloak/wiki/C-Preprocessor-tricks,-tips,-and-idioms">Tips and tricks</a> if interested.</p>
+</li>
+</ul>
 </section>
   </div>
   <div class="slide hidden" id="slide-13">
-    <section class="slide-content"><h3 id="commonly-used-patterns">Commonly Used Patterns</h3>
+    <section class="slide-content"><h3 id="conditional-compilation-directives">Conditional Compilation Directives</h3>
+<ul>
+<li><p>Part of the code can be compiled or not compiled depending on certain condition:</p>
+</li>
+<li><p><code>#ifdef</code> and <code>#ifndef</code> checks for if an identifier is defined or not defined, usually used with macro. <span class="hidden">(compile if a certain macro is defined, which can be passed from compiler options.)</span></p>
+<pre><code class="lang-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">ifdef</span> PCA</span>
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">"PCA is defined"</span>);
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span>
+</code></pre>
+</li>
+<li><p><code>#if</code> checks if the expression evaluates to a non-zero value. Simple expressions can be used in the condition (with macros replaced).</p>
+</li>
+<li><p><code>#elif</code> (else if) and <code>#else</code> can also be used.</p>
+<pre><code class="lang-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">if</span> 1 + 1 == 2</span>
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">"1 + 1 = 2"</span>);
+<span class="hljs-meta">#<span class="hljs-meta-keyword">else</span></span>
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">"1 + 1 != 2"</span>);
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span>
+</code></pre>
+</li>
+</ul>
 </section>
   </div>
   <div class="slide hidden" id="slide-14">
+    <section class="slide-content"><h3 id="misc-">Misc.</h3>
+<ul>
+<li><p>Include guard: prevent header file content from imported multiple times.<br>It can be implemented with macro and conditional compilation:</p>
+<pre><code class="lang-C"><span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span> MODULE_NAME</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> MODULE_NAME</span>
+<span class="hljs-comment">// module content</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span>
+</code></pre>
+<p>or it can also be implemented through special compiler directive (modern compilers usually support this):</p>
+<pre><code class="lang-C"><span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> once</span>
+</code></pre>
+</li>
+<li><p><code>\</code> at the end of line would concatenate the next line into the current line, usually used with macro. Example:</p>
+<pre><code class="lang-C"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> IF_BLOCK        \
+    <span class="hljs-meta-keyword">if</span> (1 + 1 == 2)     \
+        printf(<span class="hljs-meta-string">"true"</span>); \
+    <span class="hljs-meta-keyword">else</span>                \
+        printf(<span class="hljs-meta-string">"false"</span>);</span>
+</code></pre>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-15">
     <section class="slide-content"><h1 id="git">Git</h1>
 <h2 id="even-better-than-google-cloud">Even better than Google Cloud</h2>
 </section>
   </div>
-  <div class="slide hidden" id="slide-15">
-    <section class="slide-content"><h3 id="distributed-ordering">Distributed &amp; Ordering</h3>
-</section>
-  </div>
   <div class="slide hidden" id="slide-16">
-    <section class="slide-content"><h3 id="versioning-101">Versioning 101</h3>
+    <section class="slide-content"><h3 id="what-is-git">What is Git</h3>
+<ul>
+<li>A distributed version management tool for programmers.</li>
+<li>Used for version management and conflict handling.</li>
+<li>Multiple people editing the same thing is problematic. Git handles that by calculating diffs and join them.</li>
+<li>Git provides multiple branches for management. Different branch for different purposes, such as stable or feature branch, and provides operations for managing them.</li>
+</ul>
+<p><img src="./tutorial2.assets/merge_branch_005.png" alt="merge"></p>
 </section>
   </div>
   <div class="slide hidden" id="slide-17">
-    <section class="slide-content"><h3 id="operations-in-git">Operations in Git</h3>
+    <section class="slide-content"><h3 id="common-operations-terminologies">Common Operations &amp; Terminologies</h3>
+<ul>
+<li><strong>Add</strong>: Propose changes for later operations (usually used with commit).</li>
+<li><strong>Commit</strong>: Save the changes to the current branch, with message describing the changes.</li>
+<li><strong>Push</strong>: Send the current branch changes to remote branch.</li>
+<li><strong>Pull</strong>: Get the changes from the remote branch to the current branch.</li>
+<li><strong>Merge</strong>: Merge changes from another branch.</li>
+<li><strong>Conflict</strong>: When diffs overlap with each other and git does not know how to resolve them. Requires programmer to <em>resolve</em> and commit.</li>
+</ul>
+<p><img src="./tutorial2.assets/merge-conflict.png" alt="git merge conflict"></p>
 </section>
   </div>
 
@@ -791,7 +897,7 @@ function navigate(n) {
   var numSlides = document.getElementsByClassName('slide').length;
 
   /* Positions are 1-indexed, so we need to add and subtract 1 */
-  var nextPosition = (position - 1 + n) % numSlides + 1;
+  var p = position + n; if (p <= 0 || p > numSlides) return; var nextPosition = (position - 1 + n) % numSlides + 1;
 
   /* Normalize nextPosition in-case of a negative modulo result */
   nextPosition = (nextPosition - 1 + numSlides) % numSlides + 1;
@@ -928,3 +1034,4 @@ document.addEventListener('DOMContentLoaded', function () {
   </script>
 </body>
 </html>
+

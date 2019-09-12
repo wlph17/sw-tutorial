@@ -6,12 +6,14 @@ Materials will be released/modified later.
 
 ## Tutorial Syllabus
 
-1. 13/9 18:00~20:00 - Basics of C language
-2. 15/9 14:00~16:00 - More C language & Basic of Git
-3. 21/9 14:00~16:00 - Computer System
-4. 22/9 14:00~16:00 - Introduction to embedded system
-5. 28/9 14:00~16:00 - Basics of RTOS
-6. 29/9 14:00~16:00 - CAN protocol and PID control
+| Date | Time        | Venue                   | Topics                          |
+| ---- | ----------- | ----------------------- | --------------------------------|
+| 13/9 | 18:00~20:00 | Room 2302               | Basics of C language            |
+| 15/9 | 14:00~16:00 | LG4 Multi-Function Room | More C language & Basic of Git  |
+| 21/9 | 14:00~16:00 | LG4 Multi-Function Room | Computer System                 |
+| 22/9 | 14:00~16:00 | LG4 Multi-Function Room | Introduction to embedded system |
+| 28/9 | 14:00~16:00 | LG4 Multi-Function Room | Basics of RTOS                  |
+| 29/9 | 14:00~16:00 | LG4 Multi-Function Room | CAN protocol and PID control    |
 
 ## Notes
 
@@ -19,9 +21,9 @@ Note: These notes are not meant to be complete, readers are expected to read mor
 
 The web ppt CSS is optimized for 16:9 computer screen only. (in short, my screen only)
 
-0. [Introduction](introduction.md)([Web ppt](https://hkustenterprize.github.io/sw-tutorial/introduction.html))
-1. [Basic C Language](basic_c.md)([Web ppt](https://hkustenterprize.github.io/sw-tutorial/basic_c.html))
-2. [More C Language](more_c.md)([Web ppt](https://hkustenterprize.github.io/sw-tutorial/more_c.html))
+0. [Kickoff Meeting](kickoff.md) ([Web ppt](https://hkustenterprize.github.io/sw-tutorial/kickoff.html))
+1. [Tutorial 1](tutorial1.md) ([Web ppt](https://hkustenterprize.github.io/sw-tutorial/tutorial1.html))
+2. [Tutorial 2](tutorial2.md)([Web ppt](https://hkustenterprize.github.io/sw-tutorial/tutorial2.html))
 
 > Web ppt files are generated using [Cleaver](https://github.com/jdan/cleaver).
 
