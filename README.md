@@ -7,8 +7,8 @@ Materials will be released/modified later.
 ## Tutorial Syllabus
 
 | Date | Time        | Venue                   | Topics                          |
-| ---- | ----------- | ----------------------- | --------------------------------|
-| 13/9 | 18:00~20:00 | Room 2302               | Basics of C language            |
+| ---- | ----------- | ----------------------- | ------------------------------- |
+| 13/9 | 19:00~21:00 | Room 2302               | Basics of C language            |
 | 15/9 | 14:00~16:00 | LG4 Multi-Function Room | More C language & Basic of Git  |
 | 21/9 | 14:00~16:00 | LG4 Multi-Function Room | Computer System                 |
 | 22/9 | 14:00~16:00 | LG4 Multi-Function Room | Introduction to embedded system |
@@ -23,7 +23,7 @@ The web ppt CSS is optimized for 16:9 computer screen only. (in short, my screen
 
 0. [Kickoff Meeting](kickoff.md) ([Web ppt](https://hkustenterprize.github.io/sw-tutorial/kickoff.html))
 1. [Tutorial 1](tutorial1.md) ([Web ppt](https://hkustenterprize.github.io/sw-tutorial/tutorial1.html))
-2. [Tutorial 2](tutorial2.md)([Web ppt](https://hkustenterprize.github.io/sw-tutorial/tutorial2.html))
+2. [Tutorial 2](tutorial2.md) ([Web ppt](https://hkustenterprize.github.io/sw-tutorial/tutorial2.html))
 
 > Web ppt files are generated using [Cleaver](https://github.com/jdan/cleaver).
 
