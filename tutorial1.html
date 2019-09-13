@@ -618,7 +618,7 @@ ADD r0, r0, r1    /* add r0 and r1 and save it in r0 */
   <div class="slide hidden " id="slide-4">
     <section class="slide-content"><h3 id="compiler">Compiler</h3>
 <ul>
-<li>High level languages cannot be executed by computers directly. It has to be translated into machine code before execution, this translation is called <strong><em>compile</em></strong> and is done by a <strong><em>compiler</em></strong> (compiler toolchain, basically a set of tools).</li>
+<li>High level languages cannot be executed by computers directly. It has to be translated into machine code before execution, this translation is called <strong><em>compiling</em></strong> and is done by a <strong><em>compiler</em></strong> (or compiler toolchain, basically a set of tools).</li>
 <li>When compiling programs for another kind of machine having different set of instruction set, a <strong><em>cross-compiler</em></strong> would be needed, and the translation would be called <strong><em>cross-compile</em></strong>. <span class="hidden">In short, the compiler used in our embedded programming is different from what we use normally.</span></li>
 <li><span class="hidden">Apart from compiling C files, we may have to include assembly code files or library files to generate the entire executable program. </span>The process of generating the executable program is called <strong><em>building</em></strong>, <span class="hidden">and due to the complexity of the build process</span> we often make use of build tools such as <strong>GNU Make</strong> to automate the build process.</li>
 </ul>
@@ -656,10 +656,8 @@ ADD r0, r0, r1    /* add r0 and r1 and save it in r0 */
 </ul>
 </li>
 </ul>
-<p><span class="hidden"></p>
 <blockquote>
-<p>Note: The memory layout for the same type in different architecture may be different. Search <strong><em>memory alignment</em></strong> and <strong><em>endianness</em></strong> for more details.
-</span></p>
+<p>Note: The memory layout for the same type in different architecture may be different. Search <strong><em>memory alignment</em></strong> and <strong><em>endianness</em></strong> for more details.</p>
 </blockquote>
 </section>
   </div>
@@ -850,7 +848,7 @@ else
 <pre><code class="lang-c"><span class="hljs-keyword">for</span> (&lt;initial&gt;; &lt;condition&gt;; &lt;action&gt;)
     &lt;statement&gt;
 </code></pre>
-<p>Run the initial statement once, check condition, run action, statement and repeat if condition is true. Example:</p>
+<p>Run the initial statement once, check condition, run statement, action and repeat if condition is true. Example:</p>
 <pre><code class="lang-c"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++)
     <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d\n"</span>, i);
 </code></pre>

@@ -44,7 +44,7 @@ int main()
 
 ### Compiler
 
-* High level languages cannot be executed by computers directly. It has to be translated into machine code before execution, this translation is called ***compile*** and is done by a ***compiler*** (compiler toolchain, basically a set of tools).
+* High level languages cannot be executed by computers directly. It has to be translated into machine code before execution, this translation is called ***compiling*** and is done by a ***compiler*** (or compiler toolchain, basically a set of tools).
 * When compiling programs for another kind of machine having different set of instruction set, a ***cross-compiler*** would be needed, and the translation would be called ***cross-compile***. <span class="hidden">In short, the compiler used in our embedded programming is different from what we use normally.</span>
 * <span class="hidden">Apart from compiling C files, we may have to include assembly code files or library files to generate the entire executable program. </span>The process of generating the executable program is called ***building***, <span class="hidden">and due to the complexity of the build process</span> we often make use of build tools such as **GNU Make** to automate the build process.
 
@@ -78,9 +78,7 @@ printf(/*a comment in the middle of a line*/  "bar");
 
     <span class="hidden">Compiler performs ***type checking*** to make sure that the programmer uses the right type on the right place. For example, not putting a text into a math function.</span>
 
-<span class="hidden">
 > Note: The memory layout for the same type in different architecture may be different. Search ***memory alignment*** and ***endianness*** for more details.
-</span>
 
 --
 
@@ -288,7 +286,7 @@ printf(/*a comment in the middle of a line*/  "bar");
   for (<initial>; <condition>; <action>)
       <statement>
   ```
-  Run the initial statement once, check condition, run action, statement and repeat if condition is true. Example:
+  Run the initial statement once, check condition, run statement, action and repeat if condition is true. Example:
   
   ```c
   for (int i = 0; i < 10; i++)
