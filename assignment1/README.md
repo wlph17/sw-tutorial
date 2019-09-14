@@ -34,7 +34,7 @@ The assignment would be graded using a different set of test cases.
 
 1.  Install [Git](https://git-scm.com/downloads).
 2.  Install [LLVM](http://releases.llvm.org/download.html) for the clang compiler and clang-format tool.
-> For Windows users, install [MSYS2](https://www.msys2.org/) too.
+> For Windows users, install [Build tools for Visual Studio](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2017). Scroll down, select tools for visual studio 2019, build tools for visual studio 2019. After running the program, select tools for C++.
 
 3.  Install [VSCode](https://code.visualstudio.com/) as the editor if you don't have any preferred editor.  
     Install C/C++ extension pack.  
