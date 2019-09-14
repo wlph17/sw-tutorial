@@ -12,10 +12,11 @@ To find the first maximum consecutive repeating character in a string.
 
 ## Instruction
 1. Complete the `implementation.c`.
-2. Compile both the `implementation.c` and `tests.c`.
-3. Run the executable generated.
-4. Create a private repository and add `pca006132` as collaborator.
-5. Commit and push the code to the repository.
+2. State your ITSC account at the start of the `implementation.c`. For example: `//ITSC: cklamaq` at the first line.
+3. Compile both the `implementation.c` and `tests.c`.
+4. Run the executable generated.
+5. Create a private repository and add `pca006132` as collaborator.
+6. Commit and push the code to the repository.
 
 The `tests.c` contains simple test cases for you to test. 
 The assignment would be graded using a different set of test cases.
@@ -33,8 +34,10 @@ The assignment would be graded using a different set of test cases.
 > For **Windows** users, select **Add to PATH** when you see the option during installation.
 
 1.  Install [Git](https://git-scm.com/downloads).
-2.  Install [LLVM](http://releases.llvm.org/download.html) for the clang compiler and clang-format tool.
+2.  Install [LLVM](http://releases.llvm.org/download.html) for the clang compiler and clang-format tool. (prebuilt binary for your platform)
 > For Windows users, install [Build tools for Visual Studio](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2017). Scroll down, select tools for visual studio 2019, build tools for visual studio 2019. After running the program, select tools for C++.
+> 
+> For Mac users, use `brew install git llvm`.
 
 3.  Install [VSCode](https://code.visualstudio.com/) as the editor if you don't have any preferred editor.  
     Install C/C++ extension pack.  
