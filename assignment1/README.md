@@ -34,12 +34,12 @@ The assignment would be graded using a different set of test cases.
 2.  Install [LLVM](http://releases.llvm.org/download.html) for the clang compiler and clang-format tool.
 > For Windows users, install [MSYS2](https://www.msys2.org/) too.
 
-3.  Install [VSCode](https://code.visualstudio.com/) as the editor if you don't have any preferred editor.
+3.  Install [VSCode](https://code.visualstudio.com/) as the editor if you don't have any preferred editor.  
+    Install C/C++ extension pack.  
     ![VSCode Extension](./README.assets/1568438522532.png)  
-    Install C/C++ extension pack from the place above.
 4. Use terminal to go to the `assignment1` directory of this repository, and compile the program using `clang implementation.c tests.c`, and run the `a.exe` (for windows) or `a.out` for *nix operating systems.  
    ![shell](./README.assets/1568438903532.png)
-5.  Create a private repository in GitHub and add `pca006132` as the collaborator.
+5.  Create a private repository in GitHub and add `pca006132` as the collaborator.  
     ![GitHub](./README.assets/1568439179841.png)  
     ![repo](./README.assets/1568439235878.png)  
     ![collaborator](./README.assets/1568439375716.png)
