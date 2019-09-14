@@ -1,3 +1,5 @@
+# WARNING: INFORMATION IN THIS BRANCH MAY SUBJECT TO CHANGES.
+
 # Software Tutorial
 
 HKUST RoboMaster embedded software team tutorial.
@@ -14,6 +16,10 @@ Materials will be released/modified later.
 | 22/9 | 14:00~16:00 | LG4 Multi-Function Room | Introduction to embedded system |
 | 28/9 | 14:00~16:00 | LG4 Multi-Function Room | Basics of RTOS                  |
 | 29/9 | 14:00~16:00 | LG4 Multi-Function Room | CAN protocol and PID control    |
+
+## Assignments
+
+1. [Finding maximum consecutive repeating character](./assignment1/README.md). Due at 22/9/2019.
 
 ## Notes
 
