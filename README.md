@@ -1,5 +1,3 @@
-# WARNING: INFORMATION IN THIS BRANCH MAY SUBJECT TO CHANGES.
-
 # Software Tutorial
 
 HKUST RoboMaster embedded software team tutorial.
