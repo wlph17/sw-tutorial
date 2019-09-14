@@ -30,6 +30,8 @@ The assignment would be graded using a different set of test cases.
 * Formatting using clang-format: 1 Mark.
 
 ## Environment Setup
+> For **Windows** users, select **Add to PATH** when you see the option during installation.
+
 1.  Install [Git](https://git-scm.com/downloads).
 2.  Install [LLVM](http://releases.llvm.org/download.html) for the clang compiler and clang-format tool.
 > For Windows users, install [MSYS2](https://www.msys2.org/) too.
