@@ -1,6 +1,6 @@
 # Software Tutorial Assignment 1
 
-Due: 22/9/2019
+Due: 22/9/2019 23:59
 
 ## Problem Definition
 To find the first maximum consecutive repeating character in a string.
@@ -49,7 +49,8 @@ The assignment would be graded using a different set of test cases.
     ![repo](./README.assets/1568439235878.png)  
     ![collaborator](./README.assets/1568439375716.png)
 
-6. Follow the *…or push an existing repository from the command line* instruction to publish your code.
+6. Run `git remote remove origin` in the directory before running the instructions from GitHub.
+7. Follow the *…or push an existing repository from the command line* instruction to publish your code.
 
 ## Naming Convention
 * Lower camel case for function and variable.

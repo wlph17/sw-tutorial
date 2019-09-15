@@ -54,6 +54,8 @@ The web ppt CSS is optimized for 16:9 computer screen only. (in short, my screen
 * Git
   - [Simple Guide](https://rogerdudler.github.io/git-guide/)
   - [Submodule](https://github.blog/2016-02-01-working-with-submodules/)
+* Command Line
+  - [Command Line 101](https://www.git-tower.com/learn/git/ebook/en/command-line/appendix/command-line-101)
 
 ## Tools
 * [LLVM](http://releases.llvm.org/download.html#8.0.1)
